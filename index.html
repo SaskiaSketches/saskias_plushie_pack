@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saskia's Plushie Pack</title>
+    <style>
+        :root {
+            --bg-color: #f4f1ea;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --accent: #6b8e7d;
+            --nav-hover: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            position: sticky; top: 0; z-index: 100;
+        }
+        h1 { margin: 0 0 15px 0; font-size: 2.2rem; color: #1a202c; }
+        h2 { color: #1a202c; margin-top: 10px; margin-bottom: 20px; }
+        
+        nav button {
+            background: none; border: 1px solid transparent;
+            padding: 8px 18px; margin: 0 4px;
+            cursor: pointer; font-weight: 600; font-size: 1rem;
+            border-radius: 20px; color: #4a5568;
+            transition: all 0.2s;
+        }
+        nav button.active, nav button:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        .page-content {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: none;
+        }
+        .page-content.active { display: block; }
+        
+        /* Interactive Grid Filter Bar */
+        .filter-bar {
+            background: var(--card-bg);
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .filter-bar select, .filter-bar input {
+            padding: 9px 12px;
+            border: 1px solid #d2d6dc;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: #ffffff;
+            color: var(--text-main);
+            box-sizing: border-box;
+            width: 100%;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .filter-bar select:focus, .filter-bar input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(107, 142, 125, 0.2);
+        }
+
+        /* Grid Spans for Perfect Row Alignment */
+        .span-3 {
+            grid-column: span 3;
+        }
+        .span-2 {
+            grid-column: span 2;
+        }
+        .date-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        /* Responsive Collapse for Small Screens */
+        @media (max-width: 850px) {
+            .filter-bar {
+                grid-template-columns: 1fr;
+            }
+            .span-3, .span-2 {
+                grid-column: span 1;
+            }
+        }
+        @media (max-width: 500px) {
+            .date-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Gallery Grid Layout */
+        .plush-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        .plush-card {
+            background: var(--card-bg);
+            border-radius: 12px; padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .plush-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .plush-card img {
+            width: 100%; height: 180px;
+            object-fit: cover; border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .plush-title {
+            font-weight: bold; margin-top: 12px;
+            font-size: 1.1rem; color: #1a202c;
+        }
+
+        /* Sort Toggle Button */
+        .sort-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .sort-btn {
+            background: var(--card-bg);
+            border: 1px solid #cbd5e0;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #4a5568;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .sort-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .sort-arrow {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--accent);
+            transition: transform 0.2s ease;
+        }
+
+        /* Detail Modal Popup Window */
+        .modal {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .modal-content {
+            background: var(--card-bg, #ffffff);
+            max-width: 1050px;
+            width: 90%;
+            height: 80vh;
+            max-height: 700px;
+            min-height: 480px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+            animation: fadeIn 0.2s ease-out;
+            overflow: hidden;
+        }
+
+        .modal-body {
+            padding: 25px;
+            height: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .modal-layout { 
+            display: flex; 
+            gap: 25px; 
+            flex-wrap: nowrap;
+            align-items: stretch;
+            height: 100%;
+        }
+
+        .modal-left { 
+            flex: 1.2; 
+            min-width: 280px; 
+            height: 100%;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .modal-right { 
+            flex: 1; 
+            min-width: 280px; 
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 12px;
+            box-sizing: border-box;
+        }
+
+        .section-header {
+            font-weight: bold;
+            color: var(--accent);
+            margin-top: 16px;
+            margin-bottom: 6px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 1.05rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 32px;
+            cursor: pointer;
+            color: #a0aec0;
+            border: none; background: none; outline: none;
+            z-index: 10;
+        }
+        .modal-close:hover { color: #4a5568; }
+        
+        .card-box { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.01); margin-bottom: 20px; }
+        .update-date { color: #a0aec0; font-size: 0.85rem; margin: -5px 0 15px 0; }
+        .hardcore-tag { display: inline-block; background: #FD998B; color: #A11502; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .challenging-tag { display: inline-block; background: #CBCDFE; color: #3861BB; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .easy-tag { display: inline-block; background: #D9FECA; color: #6CA130; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+
+        .header-banner-container {
+            max-width: 1160px;
+            margin: 20px auto 0 auto;
+            padding: 0 20px;
+        }
+        .header-banner {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            display: block;
+        }
+
+        .update-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .update-img {
+            width: 300px; height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .update-text-container {
+            flex: 1; min-width: 250px;
+        }
+        .update-text-container h3 {
+            margin-top: 0; margin-bottom: 5px;
+        }
+
+        .artist-header {
+            font-size: 1.6rem; color: #1a202c;
+            margin-top: 30px; margin-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+        }
+        .artist-description {
+            font-size: 1rem; color: #4a5568;
+            margin-bottom: 20px; font-style: italic;
+        }
+
+        /* 3-Image Row Layout for "What is The Box?" */
+        .box-image-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .box-image-row img {
+            flex: 1;
+            width: 33.333%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        @media (max-width: 700px) {
+            .box-image-row {
+                flex-direction: column;
+            }
+            .box-image-row img {
+                width: 100%;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Saskia's Plushie Pack</h1>
+        <nav>
+            <button onclick="showPage('welcome')" id="btn-welcome" class="active">Welcome</button>
+            <button onclick="showPage('collection')" id="btn-collection">The Pack</button>
+            <button onclick="showPage('handmade')" id="btn-handmade">Handmade</button>
+            <button onclick="showPage('thebox')" id="btn-thebox">The Box</button>
+            <button onclick="showPage('updates')" id="btn-updates">Updates</button>
+            <button onclick="showPage('grails')" id="btn-grails">Grails</button>
+            <button onclick="showPage('contact')" id="btn-contact">Contact</button>
+        </nav>
+    </header>
+
+    <div class="header-banner-container">
+        <img src="images/banner.jpeg" alt="Saskia's Plushie Pack Banner" class="header-banner">
+    </div>
+
+    <!-- 1. WELCOME PAGE -->
+    <div id="welcome" class="page-content active">
+        <div class="card-box">
+        <h2>Hello hello!</h2>
+            <p><strong>None of the plushies listed on this website are available for purchase!</strong></p>
+            <p>My name is Saskia and welcome to my collection log.</p>
+            <p>I decided to move the record of my collection from Instagram to a dedicated website. Here you can find everybody from my plushie pack, including their names, brands, backstories, and other relevant information!</p>
+            <p>If you need help finding a plush, feel free to shoot me a message! As listed above, this is my personal collection so none of these plushies are for sale. Please do not ask, I will not respond. I'd be happy to help you find a similar one though!</p>
+            <p>I'm mostly done collecting, but there are a few plush I'm still hoping to add to my pack. You will find them in the <strong>"Grails"</strong> section. If you have any for sale or know of any listings, please send me a message!</p>
+            <p>Have fun looking around!</p>
+            <p>-Saskia</p>
+        </div>
+    </div>
+
+    <!-- 2. MAIN GALLERY -->
+    <div id="collection" class="page-content">
+        <div class="filter-bar">
+            <!-- Row 1 (5 Equal Columns) -->
+            <input type="text" id="searchBar" onkeyup="filterPlushies()" placeholder="🔍 Search by name...">
+            
+            <select id="speciesFilter" onchange="updateSub1Dropdown(); filterPlushies();">
+                <option value="all">Family</option>
+                <option value="avians">Avians</option>
+                <option value="bovines">Bovines</option>
+                <option value="canines">Canines</option>
+                <option value="cervids">Cervids</option>
+                <option value="equines">Equines</option>
+                <option value="felines">Felines</option>
+                <option value="hyenas">Hyenas</option>
+                <option value="leporines">Leporines</option>
+                <option value="mustelids">Mustelids</option>
+                <option value="ovines">Ovines</option>
+                <option value="porcines">Porcines</option>
+                <option value="primates">Primates</option>
+                <option value="ursids">Ursids</option>
+                <option value="marine_animals">Marine Animals</option>
+                <option value="reptilians_amphibians">Reptiles & Amphibians</option>
+                <option value="misc_mammals">Misc Mammals</option>
+                <option value="extinct_animals">Extinct Animals</option>
+                <option value="fantastical_animals">Fantastical Animals</option>
+            </select>
+            
+            <select id="sub1Filter" onchange="updateSub2Dropdown(); filterPlushies();">
+                <option value="all">Species</option>
+            </select>
+            
+            <select id="sub2Filter" onchange="filterPlushies()">
+                <option value="all">Subspecies</option>
+            </select>
+
+            <select id="handmadeFilter" onchange="filterPlushies()">
+                <option value="all">Type</option>
+                <option value="factory">Manufactured</option>
+                <option value="handmade">Handmade</option>
+            </select>
+
+            <!-- Row 2 -->
+            <select id="brandFilter" class="span-3" onchange="filterPlushies()">
+                <option value="all">Brand</option>
+            </select>
+
+            <select id="sizeFilter" class="span-2" onchange="filterPlushies()">
+                <option value="all">Size</option>
+                <option value="tiny">Tiny</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <option value="huge">Huge</option>
+            </select>
+
+            <!-- Row 3 -->
+            <select id="makerFilter" class="span-3" onchange="filterPlushies()">
+                <option value="all">Artist</option>
+                <option value="Chvrchgrim">Chvrchgrim</option>
+                <option value="Crotalus Creatures">Crotalus Creatures</option>
+                <option value="Cursed Thirteen">Cursed Thirteen</option>
+                <option value="Frazetta Toys">Frazetta Toys</option>
+                <option value="Jaydy">Jaydy</option>
+                <option value="Muurkaartjes">Muurkaartjes</option>
+                <option value="Need4Needles Plusherie">Need4Needles Plusherie</option>
+                <option value="Sarity">Sarity</option>
+                <option value="Stormheart Creations">Stormheart Creations</option>
+                <option value="VikiRealisticDog">VikiRealisticDog</option>
+                <option value="SaskiaSketches">SaskiaSketches (Me!)</option>
+            </select>
+
+            <div class="date-group span-2">
+                <select id="dayFilter" onchange="filterPlushies()">
+                    <option value="all">Day</option>
+                </select>
+
+                <select id="monthFilter" onchange="filterPlushies()">
+                    <option value="all">Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+
+                <select id="yearFilter" onchange="filterPlushies()">
+                    <option value="all">Year</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="sort-container">
+            <button class="sort-btn" onclick="toggleSortOrder()">
+                <span id="sortText">Chronological Order</span>
+                <span id="sortArrow" class="sort-arrow">↓</span>
+            </button>
+        </div>
+
+        <div class="plush-grid" id="gridContainer"></div>
+    </div>
+
+    <!-- 3. HANDMADE SHOWCASE PAGE -->
+    <div id="handmade" class="page-content">
+        <h2>Handmade Plushies</h2>
+
+        <div class="artist-header">Chvrchgrim</div>
+        <p class="artist-description">Chvrchgrim specialises in crocheted plush. Their work cannot be found online.</p>
+        <div class="plush-grid" id="grid-chvrchgrim"></div>
+
+        <div class="artist-header">CrotalusCreatures</div>
+        <p class="artist-description">Crotalus specialises in realistic plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/crotaluscreatures/" target="_blank">@crotaluscreatures</a> and can be purchased on their website.</p>
+        <div class="plush-grid" id="grid-crotaluscreatures"></div>
+
+        <div class="artist-header">Cursed Thirteen</div>
+        <p class="artist-description">Cursed Thirteen specialises in knitting. Their work can be found on Instagram under the username <a href="https://www.instagram.com/cursed_thirteen/" target="_blank">@cursed_thirteen</a> and commissioned there as well. </p>
+        <div class="plush-grid" id="grid-cursedthirteen"></div>
+
+        <div class="artist-header">Frazetta Toys</div>
+        <p class="artist-description">Frazetta specialises in handmade plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/frazetta.toys/" target="_blank">@frazetta.toys</a> and commissioned there as well. </p>
+        <div class="plush-grid" id="grid-frazettatoys"></div>
+
+        <div class="artist-header">Jaydy</div>
+        <p class="artist-description">Jaydy is my friend who occasionally sews! Their work cannot be found online.</p>
+        <div class="plush-grid" id="grid-jaydy"></div>
+
+        <div class="artist-header">Muurkaartjes</div>
+        <p class="artist-description">Muurkaartjes specialises in crocheting, knitting, and traditional art. Their work can be found on Instagram under the username <a href="https://www.instagram.com/muurkaartjes/" target="_blank">@muurkaartjes</a> and commissioned there as well.</p>
+        <div class="plush-grid" id="grid-muurkaartjes"></div>
+
+        <div class="artist-header">Need4Needles Plusherie</div>
+        <p class="artist-description">Need4Needles specialises in handmade plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/need4needles.plusherie/" target="_blank">@need4needles.plusherie</a> and commissioned there as well. </p>
+        <div class="plush-grid" id="grid-need4needlesplusherie"></div>
+
+        <div class="artist-header">Sarity</div>
+        <p class="artist-description">Sarity specialises in hyperrealistic plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/sarityplush/" target="_blank">@sarityplush</a> and purchased there as well. </p>
+        <div class="plush-grid" id="grid-sarity"></div>
+
+        <div class="artist-header">Stormheart Creations</div>
+        <p class="artist-description">Stormheart specialises in handmade plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/stormheart_creations/" target="_blank">@stormheart_creations</a> and purchased there as well. </p>
+        <div class="plush-grid" id="grid-stormheartcreations"></div>
+
+        <div class="artist-header">VikiRealisticDog</div>
+        <p class="artist-description">This wonderful creator specialises in hyperrealistic plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/viki_realistic_plushies/" target="_blank">@viki_realistic_plushies</a> and purchased on their Etsy under the username <a href="https://www.etsy.com/shop/Vikirealisticdog" target="_blank">Vikirealisticdog</a>. </p>
+        <div class="plush-grid" id="grid-vikirealisticdog"></div>
+
+        <div class="artist-header">SaskiaSketches (me!)</div>
+        <p class="artist-description">This is me! I specialise in handmade plush and I'm working towards hyperrealism. My work can be found on Instagram under the username <a href="https://www.instagram.com/saskiasketches_stitches/" target="_blank">@saskiasketches_stitches</a> and both purchased and commissioned there as well.</p>
+        <div class="plush-grid" id="grid-saskiasketches"></div>
+    </div>
+
+    <!-- 4. THE BOX PAGE -->
+    <div id="thebox" class="page-content">
+        <div class="box-image-row">
+            <img src="images/the_box_1.jpeg" alt="The Box 1">
+            <img src="images/the_box_2.jpeg" alt="The Box 2">
+            <img src="images/the_box_3.jpeg" alt="The Box 3">
+        </div>
+
+        <div class="card-box">
+        <h2>What is The Box?</h2>
+            <p>I used to have an impulse buying problem and in order to help myself with that, I created The Box (with Tembo's help as you can see above!). I wanted to make impulse buying less rewarding for myself, so any plushie that I bought in a moment of weakness I wrapped and put inside The Box. Then, on a difficult day when I needed some comfort, the idea was to take a plushie out of The Box instead of scrolling Vinted and impulse buying new ones. It works well, because in moments like those, what I really need is self-compassion. Nowadays I've got much more control and I haven't impulse bought pretty much at all in 2026! Of course I still have moments of weakness when I see a cute plushie, but now I can take a deep breath and remind myself that though I certainly have enough love for all the plushies in the world, I don't have enough space, and someone else will love them just as much as me. This helps me curate my collection and save space and money for the plushies that I want the most!</p>
+        </div>
+
+        <div class="box-image-row">
+            <img src="images/the_waiting_room_1.jpeg" alt="The Box 1">
+            <img src="images/the_waiting_room_2.jpeg" alt="The Box 2">
+        </div>
+
+        <div class="card-box">
+        <h2>What is The Waiting Room?</h2>
+            <p>The Waiting Room is a similar concept. Every new plush I receive, be it through a trade, as a gift, because I saved up for it, because I made it, or through any other method, either goes into The Box or into The Waiting Room if they are too big for The Box! The difference between The Box and The Waiting Room is that I can grab something from The Box whenever I feel bad, but I can only take <i>one</i> plushie from The Waiting Room every month. I implemented this to keep my collection from growing super quickly, because though I didn't buy very many plushies in 2026, I still added a ton to my pack through gifts and trades. I wanted to feel a bit more in control over how much and how quickly my collection grows and I also wanted to feel excited again about adding a new plushie to my pack! I think it should be a super fun and special experience to get a new plushie, and because I have gotten as many as I have, I've lost that feeling, so here's to hoping this will help me capture that again.</p>
+        </div>
+
+    </div>
+
+    <!-- 5. UPDATES PAGE -->
+    <div id="updates" class="page-content">
+        <h2>Collection Updates</h2>
+
+        <div class="card-box update-item">
+            <img src="images/taliesin_update.jpeg" alt="Taliesin" class="update-img">
+            <div class="update-text-container">
+                <h3>30/07/2026 - Taliesin joins the pack!</h3>
+                <p>I just received a wonderful guardian wolf from a dear friend of mine. He was custom-made for me for a very special plushie that I got to make for my friend in exchange, none other than Njörun the soul fox! Taliesin was named after Merlin from the Arthurian legends, his other name in the book I'm currently reading! It suits this pretty pup very well. I am in awe of how beautiful he is! So much love, time, and effort went into his design and it shows in everything! From all the little details, like the thread sculpting and the striking eyes, to the way he was stuffed, so nicely weighted and wonderfully floppy, plus his incredibly soft fabrics, I marvel at him! I am so blessed to add him to the pack today. Welcome home, Taliesin!</p>
+            </div>
+        </div>
+
+        <div class="card-box update-item">
+            <img src="images/aleara_update.jpeg" alt="Aleara" class="update-img">
+            <div class="update-text-container">
+                <h3>30/07/2026 - Aleara joins the pack!</h3>
+                <p>I am unbelievably happy to announce that Aleara is joining my pack! I thought I'd never find a WWF large silver fox for under a thousand, which I could never pay, so it means so much to me that a dear friend of mine decided to sell their second WWF silver fox to me for a much more reasonable price. UPS was unbelievably unclear about when she would be delivered, but finally she was dropped off at a nearby pick-up point so I was able to retrieve her today! I still cannot believe that she is actually mine, even as I have her on my lap as I'm writing this. I love her so much, welcome home Aleara!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. GRAILS PAGE -->
+    <div id="grails" class="page-content">
+        <h2>My Plushie Wish List</h2>
+        
+        <div class="card-box">
+            <h3>My Biggest Grails <span class="hardcore-tag">HARDCORE</span></h3>
+            <p>Plushies that are extremely difficult to come by.</p>
+            <div class="plush-grid" id="grid-grails-hardcore" style="margin-top: 15px;"></div>
+        </div>
+        
+        <div class="card-box">
+            <h3>Overseas <span class="challenging-tag">CHALLENGING</span></h3>
+            <p>Plushies I’ve been wanting for a while, but need help acquiring to save on shipping and import fees.</p>
+            <div class="plush-grid" id="grid-grails-overseas" style="margin-top: 15px;"></div>
+        </div>
+        
+        <div class="card-box">
+            <h3>Priority <span class="easy-tag">EASY</span></h3>
+            <p>Plushies I want the most/have been wanting the longest, but haven’t gotten around to getting yet. Plushies I would hate to see go out of stock before I’ve gotten a chance to get one.</p>
+            <div class="plush-grid" id="grid-grails-priority" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <!-- 7. CONTACT PAGE -->
+    <div id="contact" class="page-content">
+        <div class="card-box">
+        <h2>Get in Touch</h2>
+            <p>The only social media I am currently active on is Discord. I'm SaskiaSketches over there, feel free to send me a friend request and a message!</p>
+        </div>
+    </div>
+
+    <!-- MODAL DISPLAY PORTAL -->
+    <div id="detailModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="plush_data.js"></script>
+    <script>
+        let currentPlushIndex = 0;
+        let currentPlushList = [];
+
+        // Wishlist Grails Data
+        const grailsData = [
+            // HARDCORE / My Biggest Grails
+            {
+                name: "WWF Fennec Fox",
+                file: "grail_wwf_fennec_fox.jpeg",
+                brand: "WWF, Anna Club Plush",
+                model_name: "large fennec fox",
+                on_list_since: "2024",
+                status: "grail",
+                history: "I have been collecting the WWF/Anna Club Plush foxes for a while now and this is the last one I need! I once missed a listing by a hair, the seller had it listed as free to anyone who would come pick it up, and though I offered to pay to have it shipped an hour after they had uploaded the listing, they had already promised it to someone else.",
+                credit: "<a href='https://www.instagram.com/_wildfire_wolf_/' target='_blank'>_wildfire_wolf_</a>",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Jellycat Gigantic Gilbert",
+                file: "grail_gigantic_gilbert.jpeg",
+                future_name: "Gilda",
+                brand: "Jellycat",
+                model_name: "Gigantic Gilbert great blue whale",
+                on_list_since: "2026",
+                status: "grail",
+                history: "I've been collecting the Jellycat whales since 2025. In 2026, I finally managed to snag a Gilbert for a good price, but unfortunately I was unaware that there are two sizes for Gilbert. I'd accidentally gotten the small one when I was after the large one instead. I'm still hoping to add the gigantic sized Gilbert to my pack as well.",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Douglas Maggie",
+                file: "grail_douglas_maggie.jpeg",
+                brand: "Douglas Cuddle Toys",
+                model_name: "Maggie",
+                on_list_since: "2023",
+                status: "grail",
+                history: "My soul dog is an Irish setter, and unfortunately Irish setter plushies, especially large ones, are unbelievably hard to come by. I found out about Maggie a couple years ago and I've wanted to get one ever since, but the only ones I've seen pop up thus far have been listed for hundreds, which I cannot pay. I hope to find one for a good price to add to my pack at some point down the line!",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Douglas Artemis",
+                file: "grail_douglas_artemis.jpeg",
+                brand: "Douglas Cuddle Toys",
+                model_name: "Artemis",
+                on_list_since: "2026",
+                status: "grail",
+                history: "A friend showed her to me and I fell completely in love with it!",
+                credit: "<a href='http://lishutterbug.com/fox/fox-8-md.html' target='_blank'>chodthewacko</a>",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Douglas Luster",
+                file: "grail_douglas_luster.jpeg",
+                brand: "Douglas Cuddle Toys",
+                model_name: "Luster",
+                on_list_since: "2024",
+                status: "grail",
+                history: "I saw someone on Instagram had one and I thought it was SO adorable, I fell in love with the pink nose!",
+                credit: "<a href='https://www.deviantart.com/coffiedog/art/Douglas-Cuddle-Toys-Luster-Red-Fox-plush-848339253' target='_blank'>CoffieDog</a>",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "WWF Dingo",
+                file: "grail_wwf_dingo.jpeg",
+                brand: "WWF, Anna Club Plush",
+                model_name: "large dingo",
+                on_list_since: "2025",
+                status: "grail",
+                history: "I have been a little afraid of putting this one on my wish list because I know someone else has been looking for him for over twelve years, which is unbelievably daunting. It's a beautiful plush though and I would love to add one to the pack. Dingo plushies are very hard to come by and I adore WWF plushies, so it would mean a lot to me to add such a beautiful guy to the pack!",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Trudi Sasha Tiger",
+                file: "grail_nemo.jpeg",
+                future_name: "Nemo",
+                brand: "Trudi",
+                model_name: "Sasha",
+                on_list_since: "2026",
+                status: "grail",
+                history: "I have been wanting a tiger by Trudi for a long time, but I never found a model that I liked until I found this one second hand on Vinted. I purchased him, but Mondial Relay lost my package and refused to help me find it. I'd already picked out a name, Nemo, after my D&D tiger character, and the name seemed even more fitting as he was lost. So, if anyone can help me find Nemo, I would very much appreciate it!",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Hansa Cheetah",
+                file: "grail_hansa_cheetah.jpeg",
+                brand: "Hansa",
+                model_name: "Kenya",
+                on_list_since: "2020",
+                status: "grail",
+                history: "I adore the Hansa brand and I would love to add a cheetah made by them to my pack! Sadly by the time I found out about them, this particular model was already out of stock.",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Lelly Venturelli Cheetah",
+                file: "grail_lelly_cheetah.jpeg",
+                brand: "Lelly Venturelli",
+                model_name: "Large cheetah 100 cm",
+                on_list_since: "2024",
+                status: "grail",
+                history: "I saw someone in the plushie community had one and I was instantly smitten, but sadly I couldn't afford to get one and now they are no longer available for purchase.",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Steiff Cheetah",
+                file: "grail_steiff_cheetah.jpeg",
+                brand: "Steiff",
+                model_name: "large cheetah",
+                on_list_since: "2025",
+                status: "grail",
+                history: "After I'd gotten Tuhin, I fell head over heels for the big Steiff cats. I found a listing for the cheetah, but unfortunately there was only one left and it was unbelievably expensive, so I could not afford it. That listing has since sold.",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Lelly Venturelli Medium White Lion",
+                file: "grail_lelly_white_lion_medium.jpeg",
+                future_name: "Kronos",
+                brand: "Lelly Venturelli",
+                model_name: "art. 692020",
+                on_list_since: "2025",
+                status: "grail",
+                history: "Since I adopted Thanatos I have been wanting to get her brother Kronos as well!",
+                category: "hardcore",
+                isGrail: true
+            },
+            {
+                name: "Leosco White Lioness",
+                file: "grail_leosco_white_lioness.jpeg",
+                brand: "Leosco, Uni-Toys",
+                model_name: "unknown, large white lioness",
+                on_list_since: "2025",
+                status: "grail",
+                history: "Ever since I learned of her existence, I have wanted to have one. The white lion is so elusive both in the wild and in plushie form! I think they are absolutely gorgeous and because I love River and Hera so, so much, I think I would adore one of these very much as well.",
+                credit: "<a href='http://www.plushies.de/plush-animals/lions/' target='_blank'>Plushies.de</a>",
+                category: "hardcore",
+                isGrail: true
+            },
+
+            {
+                name: "Lelly Venturelli Large White Lion",
+                file: "grail_lelly_white_lion.jpeg",
+                brand: "Lelly Venturelli",
+                model_name: "unknown, large white lion",
+                on_list_since: "2024",
+                status: "grail",
+                history: "Same as with the lioness, I would absolutely love to adopt a pair like them someday!",
+                credit: "<a href='https://www.instagram.com/kofelaplush/' target='_blank'>kofelaplush</a>",
+                category: "hardcore",
+                isGrail: true
+            },
+
+            // OVERSEAS / Challenging
+            {
+                name: "Hansa White Lion",
+                file: "grail_white_lion_large.jpeg",
+                brand: "Hansa Creation",
+                model_name: "white lion 100cm",
+                on_list_since: "2024",
+                status: "chase",
+                history: "I've been wanting a large white lion plush for a long while and then I found out about this gorgeous one by Hansa, I put him on my list immediately!",
+                category: "overseas",
+                isGrail: true
+            },
+            {
+                name: "Hansa White Lion Cub",
+                file: "grail_white_lion_cub.jpeg",
+                brand: "Hansa Creation",
+                model_name: "white lion cub floppy",
+                on_list_since: "2025",
+                status: "chase",
+                history: "I found him alongside the big lion and I've been wanting to add him to the pack ever since!",
+                category: "overseas",
+                isGrail: true
+            },
+            {
+                name: "Ditz Red Fox",
+                file: "grail_ditz_red_fox.jpeg",
+                brand: "Ditz Designs",
+                model_name: 'Red Fox Stuffed Animal 32" Woodland Plush Pillow',
+                on_list_since: "2018",
+                status: "chase",
+                history: "I have been aware of the Ditz foxes for a long time and I've wanted one for ages, but they have always been far too expensive for me to import sadly.",
+                credit: "<a href='https://www.worthpoint.com/worthopedia/ditz-designs-hen-house-red-fox-36-3772751541' target='_blank'>WorthPoint</a>",
+                category: "overseas",
+                isGrail: true
+            },
+            {
+                name: "Ditz Silver Fox",
+                file: "grail_ditz_silver_fox.jpeg",
+                brand: "Ditz Designs",
+                model_name: 'Silver Fox Stuffed Animal 32" Woodland Plush Pillow',
+                on_list_since: "2018",
+                status: "chase",
+                history: "I have been aware of the Ditz foxes for a long time and I've wanted one for ages, but they have always been far too expensive for me to import sadly.",
+                credit: "<a href='https://www.deviantart.com/ahrendaleplush/art/Ditz-Designs-Silver-Fox-731834717' target='_blank'>AhrendalePlush</a>",
+                category: "overseas",
+                isGrail: true
+            },
+            {
+                name: "Douglas Sneakie",
+                file: "grail_douglas_spider.jpeg",
+                brand: "Douglas Cuddle Toys",
+                model_name: "Sneakie",
+                on_list_since: "2025",
+                status: "chase",
+                history: "I fell in love with Sneakie from an Instagram giveaway for her that Douglas Cuddle Toys did. Obviously I didn't end up winning but I've wanted one ever since. Sadly she is unavailable over here.",
+                category: "overseas",
+                isGrail: true
+            },
+            {
+                name: "Folkmanis Alligator",
+                file: "grail_folkmanis_alligator.jpeg",
+                brand: "Folkmanis",
+                model_name: "American alligator",
+                on_list_since: "2024",
+                status: "chase",
+                history: "I have wanted one of these for a while, but I saw that the ones on Ebay looked quite different from their promotional pictures, so I'm holding off on buying one until I can find one that looks better.",
+                category: "overseas",
+                isGrail: true
+            },
+
+            // PRIORITY / Easy
+
+            {
+                name: "Douglas Alps",
+                file: "grail_douglas_alps.jpeg",
+                brand: "Douglas Cuddle Toys",
+                model_name: "Alps the Bernese Mountain Dog",
+                on_list_since: "2025",
+                status: "pick up",
+                history: "I saw him in a YouTube video where someone reviewed him and I really liked him, so I've been hoping to add him to the pack ever since!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "Douglas Kelso",
+                file: "grail_douglas_kelso.jpeg",
+                brand: "Douglas Cuddle Toys",
+                model_name: "Kelso the Mountain Lion",
+                on_list_since: "2024",
+                status: "pick up",
+                history: "I have been going back and forth on him for an eternity, but then my friend got me Saffron the Douglas leopard, which I was in the exact same boat about, so now I have to get Kelso too!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "Hansa Platypus",
+                file: "grail_hansa_platypus.jpeg",
+                future_name: "Perrita",
+                brand: "Hansa",
+                model_name: "7683 Brown Curled Platypus",
+                on_list_since: "2026",
+                status: "pick up",
+                history: "I saw her on a website and fell in love with her adorable face!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "Aurora Flynn Fox",
+                file: "grail_aurora_fox.jpeg",
+                brand: "Aurora",
+                model_name: "Flynn fox Luxe Boutique",
+                on_list_since: "2026",
+                status: "pick up",
+                history: "I love red foxes and I am forever in search of the perfect red fox plush, and Flynn might very well be it!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "Wild Republic Rhino",
+                file: "grail_wild_republic_rhino.jpeg",
+                brand: "Wild Republic",
+                model_name: "jumbo rhino",
+                on_list_since: "2020",
+                status: "pick up",
+                history: "I've loved the Wild Republic jumbos for ages and I have been staring at this rhino since 2020... Maybe it is finally time.",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "IKEA Snake",
+                file: "grail_ikea_snake.jpeg",
+                brand: "IKEA",
+                model_name: "DJUNGELSKOG",
+                on_list_since: "2025",
+                status: "pick up",
+                history: "I have plans to modify this snake; I want to turn him into a plushie instead of a puppet. Possibly I'll get two and modify him to be way longer!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "IKEA Cheetah",
+                file: "grail_ikea_cheetah_mama.jpeg",
+                brand: "IKEA",
+                model_name: "SANDLÖPARE",
+                on_list_since: "2025",
+                status: "pick up",
+                history: "It's a cheetah by IKEA! Enough said.",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "IKEA Cheetah Cub",
+                file: "grail_ikea_cheetah_cub.jpeg",
+                brand: "IKEA",
+                model_name: "SANDLÖPARE",
+                on_list_since: "2025",
+                status: "pick up",
+                history: "Mama Cheetah's gonna need her babies! I'd love to get at least two.",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "IKEA Hippo",
+                file: "grail_ikea_hippo.jpeg",
+                brand: "IKEA",
+                model_name: "SANDLÖPARE",
+                on_list_since: "2026",
+                status: "pick up",
+                history: "I've been debating getting the old IKEA hippo for a while, but then they came out with this beauty, who is infinitely prettier, so now I'm hoping to get him instead!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "IKEA Giraffe",
+                file: "grail_ikea_giraffe.jpeg",
+                brand: "IKEA",
+                model_name: "SANDLÖPARE, largest giraffe 70cm",
+                on_list_since: "2026",
+                status: "pick up",
+                history: "This giraffe is so pretty, I'd love to get one!",
+                category: "priority",
+                isGrail: true
+            },
+            {
+                name: "IKEA Panda",
+                file: "grail_ikea_panda.jpeg",
+                brand: "IKEA",
+                model_name: "DJUNGELSKOG",
+                on_list_since: "2023",
+                status: "pick up",
+                history: "I have wanted a panda plush for ages but I have never been able to find one that I like. I do quite enjoy the IKEA panda though, so I think he might be the one.",
+                category: "priority",
+                isGrail: true
+            }
+        ];
+
+        const taxonomyMaps = {
+            canines: {
+                domestic_dogs: ["bernese_mountain_dogs", "chihuahuas", "german_shepherds", "golden_retrievers", "huskies", "labradors", "misc_domestic_dogs"],
+                foxes: ["arctic_foxes_summer", "arctic_foxes_winter", "bat_eared_foxes", "cross_foxes", "darwins_foxes", "fennec_foxes", "grey_foxes", "red_foxes", "silver_foxes_traditional", "silver_foxes_whitemark", "smokey_foxes", "cherry_red_foxes", "misc_foxes"], 
+                wolves: [], 
+                misc_wild_canines: ["african_wild_dogs", "coyotes", "jackals", "tanuki"]
+            },
+            felines: { black_panthers:[], cheetahs:[], clouded_leopards:[], cougars:[], domestic_cats:[], jaguars:[], leopards:[], lionesses:[], lions:[], lynxes:[], orange_tigers:[], snow_leopards:[], white_lions:[], white_tigers:[] },
+            avians: { corvids:[], eagles:[], owls:[], parrots:[], toucans:[], misc_avians:[] },
+            bovines: { domestic_cattle:[], wild_cattle:[] },
+            cervids: { alces:[], reindeer:[], true_deer:[] },
+            equines: { donkeys:[], horses:[], zebras:[] },
+            leporines: { hares:[], rabbits:[], konijnenfamilie:[] },
+            mustelids: { badgers:[], otters:[] },
+            porcines: { domestic_pigs:[], wild_pigs:[] },
+            primates: { apes:["gorillas", "orangutans", "chimpanzees"], lemurs:[], monkeys:["macaques", "mandrills", "capuchins"] },
+            ursids: { black_bears:[], brown_bears:[], panda_bears:[], polar_bears:[] },
+            marine_animals: { dolphins:[], orcas:[], seals:[], sealions:[], sharks:[], walrusses:[], whales:[] },
+            reptilians_amphibians: { crocodiles:[], frogs:[], snakes:[], tortoises:[], turtles:[] },
+            misc_mammals: { anteaters:[], bats:[], meercats:[], megafauna:["elephants", "giraffes", "hippos", "rhinos"], red_pandas:[] },
+            extinct_animals: { dinosaurs:[], sabretooth_tigers:[], thylacines:[] },
+            fantastical_animals: { dragons:[], jackalopes:[], loch_ness_monsters:[] }
+        };
+
+        // Sort States:
+        // 0 = Chronological Down (Oldest to Newest)
+        // 1 = Chronological Up (Newest to Oldest)
+        // 2 = Alphabetical (A-Z)
+        // 3 = Alphabetical (Z-A)
+        let sortState = 0;
+
+        function toggleSortOrder() {
+            sortState = (sortState + 1) % 4;
+            
+            const textEl = document.getElementById('sortText');
+            const arrowEl = document.getElementById('sortArrow');
+
+            switch (sortState) {
+                case 0:
+                    if (textEl) textEl.textContent = 'Chronological Order';
+                    if (arrowEl) arrowEl.textContent = '↓';
+                    break;
+                case 1:
+                    if (textEl) textEl.textContent = 'Chronological Order';
+                    if (arrowEl) arrowEl.textContent = '↑';
+                    break;
+                case 2:
+                    if (textEl) textEl.textContent = 'Alphabetical Order';
+                    if (arrowEl) arrowEl.textContent = 'A-Z';
+                    break;
+                case 3:
+                    if (textEl) textEl.textContent = 'Alphabetical Order';
+                    if (arrowEl) arrowEl.textContent = 'Z-A';
+                    break;
+            }
+
+            filterPlushies();
+        }
+
+        // Helper to extract ONLY the first number (in cm) from the size string
+        function getPlushSizeCm(sizeStr) {
+            if (!sizeStr) return null;
+            const match = sizeStr.toString().match(/\d+/);
+            return match ? parseInt(match[0], 10) : null;
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('btn-' + pageId).classList.add('active');
+            
+            if (pageId === 'collection') {
+                filterPlushies();
+            } else if (pageId === 'handmade') {
+                const artists = [
+                    "chvrchgrim", "crotaluscreatures", "cursedthirteen", 
+                    "frazettatoys", "jaydy", "muurkaartjes", "need4needlesplusherie", 
+                    "sarity", "stormheartcreations", "vikirealisticdog", "saskiasketches"
+                ];
+                
+                artists.forEach(artist => {
+                    let makerKey = artist;
+                    if (artist === "crotaluscreatures") makerKey = "Crotalus Creatures";
+                    if (artist === "cursedthirteen") makerKey = "Cursed Thirteen";
+                    if (artist === "frazettatoys") makerKey = "Frazetta Toys";
+                    if (artist === "need4needlesplusherie") makerKey = "Need4Needles Plusherie";
+                    if (artist === "chvrchgrim") makerKey = "Chvrchgrim";
+                    if (artist === "jaydy") makerKey = "Jaydy";
+                    if (artist === "muurkaartjes") makerKey = "Muurkaartjes";
+                    if (artist === "sarity") makerKey = "Sarity";
+                    if (artist === "vikirealisticdog") makerKey = "VikiRealisticDog";
+                    if (artist === "saskiasketches") makerKey = "SaskiaSketches";
+                    if (artist === "stormheartcreations") makerKey = "Stormheart Creations";
+
+                    const filteredArtistItems = plushData.filter(item => item.maker === makerKey);
+                    renderGrid(filteredArtistItems, `grid-${artist}`);
+                });
+            } else if (pageId === 'grails') {
+                const hardcoreItems = grailsData.filter(item => item.category === 'hardcore');
+                renderGrid(hardcoreItems, 'grid-grails-hardcore');
+
+                const overseasItems = grailsData.filter(item => item.category === 'overseas');
+                renderGrid(overseasItems, 'grid-grails-overseas');
+
+                const priorityItems = grailsData.filter(item => item.category === 'priority');
+                renderGrid(priorityItems, 'grid-grails-priority');
+            }
+        }
+
+        function updateSub1Dropdown() {
+            const main = document.getElementById('speciesFilter').value;
+            const sub1 = document.getElementById('sub1Filter');
+            const sub2 = document.getElementById('sub2Filter');
+            sub1.innerHTML = '<option value="all">Species</option>';
+            sub2.innerHTML = '<option value="all">Subspecies</option>';
+            
+            if (taxonomyMaps[main]) {
+                Object.keys(taxonomyMaps[main]).forEach(key => {
+                    const formatted = key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+                    sub1.innerHTML += `<option value="${key}">${formatted}</option>`;
+                });
+            }
+        }
+
+        function updateSub2Dropdown() {
+            const main = document.getElementById('speciesFilter').value;
+            const sub1 = document.getElementById('sub1Filter').value;
+            const sub2 = document.getElementById('sub2Filter');
+            sub2.innerHTML = '<option value="all">Subspecies</option>';
+            
+            if (taxonomyMaps[main] && taxonomyMaps[main][sub1]) {
+                taxonomyMaps[main][sub1].forEach(key => {
+                    const formatted = key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+                    sub2.innerHTML += `<option value="${key}">${formatted}</option>`;
+                });
+            }
+        }
+
+        function renderGrid(data, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (data.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #a0aec0;">No plushies match your filters.</p>`;
+                return;
+            }
+
+            data.forEach(plush => {
+                const card = document.createElement('div');
+                card.className = 'plush-card';
+                card.onclick = () => openModal(plush, data);
+
+                const pos = plush.crop || 'center';
+
+                card.innerHTML = `
+                    <img src="images/${plush.file}" alt="${plush.name}" loading="lazy" style="object-position: ${pos};">
+                    <div class="plush-title">${plush.name}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openModal(plush, list = null) {
+            if (list && list.length > 0) {
+                currentPlushList = list;
+            } else if (!currentPlushList || currentPlushList.length === 0) {
+                currentPlushList = plushData;
+            }
+
+            currentPlushIndex = currentPlushList.findIndex(p => p === plush || (p.name === plush.name && p.file === plush.file));
+            if (currentPlushIndex === -1) currentPlushIndex = 0;
+
+            const body = document.getElementById('modalBody');
+
+            const brandOverrides = {
+                'bontontoys': 'BonTonToys',
+                'fao schwarz': 'FAO Schwarz',
+                'ikea': 'IKEA',
+                'kösen': 'Kösen',
+                'kosen': 'Kösen',
+                'lapland uk': 'Lapland UK',
+                'mcdonalds': 'McDonalds',
+                'pokémon': 'Pokémon',
+                'pokemon': 'Pokémon',
+                'ty': 'TY',
+                'wwf': 'WWF'
+            };
+
+            const formatName = (str) => {
+                if (!str) return 'unknown';
+                const trimmed = str.trim();
+                const lower = trimmed.toLowerCase();
+
+                if (lower === 'unknown') return 'unknown';
+                if (brandOverrides[lower]) return brandOverrides[lower];
+
+                return trimmed.replace(/\b\w/g, char => char.toUpperCase());
+            };
+
+            let detailsSection = '';
+
+            if (plush.isGrail) {
+                const brandName = formatName(plush.brand);
+                detailsSection = `
+                    <div class="section-header">Details</div>
+                    <p style="margin: 5px 0;"><strong>Future Name:</strong> ${plush.future_name || 'unknown'}</p>
+                    <p style="margin: 5px 0;"><strong>Brand:</strong> ${brandName}</p>
+                    <p style="margin: 5px 0;"><strong>Model:</strong> ${plush.model_name || 'unknown'}</p>
+                    <p style="margin: 5px 0;"><strong>On My List Since:</strong> ${plush.on_list_since || 'unknown'}</p>
+                    <p style="margin: 5px 0;"><strong>Status:</strong> ${plush.status || 'unknown'}</p>
+                    <p style="margin: 5px 0;"><strong>History:</strong> ${plush.history || 'unknown'}</p>
+                    ${plush.credit ? `<p style="margin: 5px 0;"><strong>Picture Credit:</strong> ${plush.credit}</p>` : ''}
+                `;
+            } else {
+                let brandOrArtistLine = '';
+                if (plush.handmade) {
+                    const artistName = formatName(plush.maker || plush.artist);
+                    brandOrArtistLine = `<p style="margin: 5px 0;"><strong>Artist:</strong> ${artistName}</p>`;
+                } else {
+                    const brandName = formatName(plush.brand);
+                    brandOrArtistLine = `<p style="margin: 5px 0;"><strong>Brand:</strong> ${brandName}</p>`;
+                }
+
+                detailsSection = `
+                    <div class="section-header">Details</div>
+                    <p style="margin: 5px 0;"><strong>Adoption Date:</strong> ${plush.adoption_date || 'Unknown'}</p>
+                    ${brandOrArtistLine}
+                    <p style="margin: 5px 0;"><strong>Model:</strong> ${plush.model_name || 'N/A'}</p>
+                    
+                    <div class="section-header">Backstory</div>
+                    <p style="margin: 5px 0; font-size: 0.95rem; color: #4a5568; max-height: 120px; overflow-y: auto;">${plush.backstory || 'No backstory recorded.'}</p>
+                    
+                    <div class="section-header">Technical Specifications</div>
+                    <div style="display: flex; gap: 15px; font-size: 0.9rem; margin-top: 5px;">
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                            <div><strong>Size:</strong> ${plush.size || 'N/A'}</div>
+                            <div><strong>Fabrics:</strong> ${plush.fabrics || 'N/A'}</div>
+                            <div><strong>Beads:</strong> ${plush.beads || 'N/A'}</div>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                            <div><strong>Softness:</strong> ${plush.softness || 'N/A'}</div>
+                            <div><strong>Weight:</strong> ${plush.weight || 'N/A'}</div>
+                            <div><strong>Floppiness:</strong> ${plush.floppiness || 'N/A'}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header">Notes</div>
+                    <p style="margin: 5px 0; font-size: 0.9rem; color: #4a5568;"><strong>Modifications:</strong> ${plush.modifications || 'None'}</p>
+                    <p style="margin: 5px 0; font-size: 0.9rem; color: #4a5568;"><strong>Additional Info:</strong> ${plush.additional_info || 'None'}</p>
+                `;
+            }
+
+            body.innerHTML = `
+                <div class="modal-layout">
+                    <div class="modal-left">
+                        <img class="modal-img" src="images/${plush.file}" alt="${plush.name}">
+                    </div>
+                    <div class="modal-right">
+                        <h2 style="margin-top: 0; color: #1a202c; font-size: 1.8rem;">${plush.name}</h2>
+                        ${detailsSection}
+                    </div>
+                </div>
+            `;
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        function filterPlushies() {
+            const query = (document.getElementById('searchBar')?.value || '').toLowerCase();
+            const speciesVal = document.getElementById('speciesFilter')?.value || 'all';
+            const sub1Val = document.getElementById('sub1Filter')?.value || 'all';
+            const sub2Val = document.getElementById('sub2Filter')?.value || 'all';
+            const sizeVal = document.getElementById('sizeFilter')?.value || 'all';
+            const handmadeVal = document.getElementById('handmadeFilter')?.value || 'all';
+            const makerVal = document.getElementById('makerFilter')?.value || 'all';
+            const brandVal = document.getElementById('brandFilter')?.value || 'all';
+
+            const dayVal = document.getElementById('dayFilter')?.value || 'all';
+            const monthVal = document.getElementById('monthFilter')?.value || 'all';
+            const yearVal = document.getElementById('yearFilter')?.value || 'all';
+
+            let filtered = plushData.filter(plush => {
+                const matchesSearch = (plush.name || '').toLowerCase().includes(query);
+                const matchesMain = (speciesVal === 'all' || plush.species === speciesVal);
+                const matchesSub1 = (sub1Val === 'all' || plush.sub1 === sub1Val);
+                const matchesSub2 = (sub2Val === 'all' || plush.sub2 === sub2Val);
+                const matchesMaker = (makerVal === 'all' || plush.maker === makerVal);
+
+                // Size Category Filter logic with override support
+                let matchesSize = true;
+                if (sizeVal !== 'all') {
+                    let category = null;
+
+                    const isUnusual = plush.unusual_size || plush.unusualSize || plush['unusual size'];
+                    const customCategory = plush.size_category || plush.sizeCategory || plush['size category'];
+
+                    if (isUnusual && customCategory) {
+                        category = customCategory.toString().toLowerCase().trim();
+                    } else {
+                        const cm = getPlushSizeCm(plush.size);
+                        if (cm !== null) {
+                            if (cm >= 1 && cm <= 20) category = 'tiny';
+                            else if (cm >= 21 && cm <= 40) category = 'small';
+                            else if (cm >= 41 && cm <= 65) category = 'medium';
+                            else if (cm >= 66 && cm <= 85) category = 'large';
+                            else if (cm >= 86 && cm <= 500) category = 'huge';
+                        }
+                    }
+
+                    matchesSize = (category === sizeVal);
+                }
+
+                let matchesHandmade = true;
+                if (handmadeVal === 'factory') matchesHandmade = (plush.handmade === false);
+                if (handmadeVal === 'handmade') matchesHandmade = (plush.handmade === true);
+
+                let matchesBrand = true;
+                if (brandVal !== 'all') {
+                    if (!plush.brand) {
+                        matchesBrand = false;
+                    } else {
+                        const brands = plush.brand.toString().toLowerCase().split(/[,/]/).map(b => b.trim());
+                        matchesBrand = brands.includes(brandVal.toLowerCase());
+                    }
+                }
+
+                let pDay = null, pMonth = null, pYear = null;
+                if (plush.adoption_date && plush.adoption_date.toLowerCase() !== 'unknown') {
+                    const parts = plush.adoption_date.split('/');
+                    if (parts.length === 3) {
+                        pDay = parts[0].trim().padStart(2, '0');
+                        pMonth = parts[1].trim().padStart(2, '0');
+                        pYear = parseInt(parts[2].trim(), 10);
+                    }
+                }
+
+                let matchesDay = (dayVal === 'all' || pDay === dayVal);
+                let matchesMonth = (monthVal === 'all' || pMonth === monthVal);
+
+                let matchesYear = true;
+                if (yearVal !== 'all') {
+                    if (yearVal.includes('-')) {
+                        const [startYr, endYr] = yearVal.split('-').map(y => parseInt(y, 10));
+                        if (pYear !== null && !isNaN(pYear)) {
+                            matchesYear = (pYear >= startYr && pYear <= endYr);
+                        } else {
+                            const mappedRange = getPlushRangeFromMap(plush.name);
+                            matchesYear = (mappedRange === yearVal);
+                        }
+                    } else {
+                        const targetYear = parseInt(yearVal, 10);
+                        matchesYear = (pYear === targetYear);
+                    }
+                }
+
+                return matchesSearch && matchesMain && matchesSub1 && matchesSub2 && 
+                       matchesSize && matchesHandmade && matchesMaker && matchesBrand && 
+                       matchesDay && matchesMonth && matchesYear;
+            });
+
+            // Apply 4-State Sorting
+            if (sortState === 1) {
+                filtered.reverse();
+            } else if (sortState === 2) {
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' }));
+            } else if (sortState === 3) {
+                filtered.sort((a, b) => (b.name || '').localeCompare(a.name || '', undefined, { sensitivity: 'base' }));
+            }
+
+            renderGrid(filtered, 'gridContainer');
+        }
+
+        function populateBrandsFromData() {
+            const brandSelect = document.getElementById('brandFilter');
+            if (!brandSelect || typeof plushData === 'undefined') return;
+
+            const brandSet = new Set();
+            const brandOverrides = {
+                'bontontoys': 'BonTonToys',
+                'fao schwarz': 'FAO Schwarz',
+                'ikea': 'IKEA',
+                'kösen': 'Kösen',
+                'kosen': 'Kösen',
+                'lapland uk': 'Lapland UK',
+                'mcdonalds': 'McDonalds',
+                'pokémon': 'Pokémon',
+                'pokemon': 'Pokémon',
+                'ty': 'TY',
+                'wwf': 'WWF'
+            };
+
+            const formatBrand = (str) => {
+                const trimmed = str.trim();
+                const lower = trimmed.toLowerCase();
+                if (brandOverrides[lower]) return brandOverrides[lower];
+                return trimmed.replace(/\b\w/g, char => char.toUpperCase());
+            };
+
+            plushData.forEach(plush => {
+                if (plush.handmade === true) return;
+                if (plush.brand && plush.maker && plush.brand.trim().toLowerCase() === plush.maker.trim().toLowerCase()) return;
+
+                if (plush.brand) {
+                    plush.brand.toString().split(/[,/]/).forEach(b => {
+                        const formatted = formatBrand(b);
+                        if (formatted) brandSet.add(formatted);
+                    });
+                }
+            });
+
+            const sortedBrands = Array.from(brandSet).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+            brandSelect.innerHTML = '<option value="all">Brand</option>';
+            sortedBrands.forEach(brand => {
+                const option = document.createElement('option');
+                option.value = brand;
+                option.textContent = brand;
+                brandSelect.appendChild(option);
+            });
+        }
+
+        const rangePlushMap = {
+            "2001-2005": [
+                "moeder konijn", "vader konijn", "haasje", "fiepje", "fikkie", 
+                "octobius", "harlie", "keintje", "popje", "spookje", "slaapje"
+            ],
+            "2006-2010": [
+                "claire", "coco", "kroko", "pantertje", "dolfie", "saar", 
+                "sneeuwvlokje", "schildje", "joey", "purr", "briez", "kenor", 
+                "bebe", "moe", "woof", "kapitein woef", "prinses roosje", 
+                "zebbie", "diego", "marie", "beesie"
+            ],
+            "2011-2015": [
+                "grote leeuw", "mare", "gwenn", "grey", "imala"
+            ],
+            "2016-2020": [
+                "alpha", "spike", "diamond", "tyranitar", "torterra", "crobat", 
+                "raikou", "glaceon", "furfrou", "tod", "blue", "iris", "quarin", 
+                "yuannah", "loki", "yata", "ice", "ash", "fauna", "hookfang", "stormfly"
+            ]
+        };
+
+        function getPlushRangeFromMap(plushName) {
+            const nameLower = (plushName || '').toLowerCase().trim();
+            for (const [rangeKey, nameList] of Object.entries(rangePlushMap)) {
+                if (nameList.some(item => nameLower === item || nameLower.startsWith(item))) {
+                    return rangeKey;
+                }
+            }
+            return null;
+        }
+
+        function populateDateDropdowns() {
+            const daySelect = document.getElementById('dayFilter');
+            if (daySelect && daySelect.options.length <= 1) {
+                for (let d = 1; d <= 31; d++) {
+                    const dayStr = String(d).padStart(2, '0');
+                    const option = document.createElement('option');
+                    option.value = dayStr;
+                    option.textContent = dayStr;
+                    daySelect.appendChild(option);
+                }
+            }
+
+            const yearSelect = document.getElementById('yearFilter');
+            if (!yearSelect || typeof plushData === 'undefined') return;
+
+            const singleYears = new Set();
+            plushData.forEach(p => {
+                if (p.adoption_date && p.adoption_date.toLowerCase() !== 'unknown') {
+                    const parts = p.adoption_date.split('/');
+                    if (parts.length === 3 && parts[2]) {
+                        const yr = parseInt(parts[2].trim(), 10);
+                        if (!isNaN(yr) && yr >= 2021) {
+                            singleYears.add(yr);
+                        }
+                    }
+                }
+            });
+
+            const currentYear = new Date().getFullYear();
+            for (let y = 2021; y <= currentYear; y++) {
+                singleYears.add(y);
+            }
+
+            const sortedSingleYears = Array.from(singleYears).sort((a, b) => a - b);
+
+            yearSelect.innerHTML = `
+                <option value="all">Year</option>
+                <option value="2001-2005">2001 - 2005</option>
+                <option value="2006-2010">2006 - 2010</option>
+                <option value="2011-2015">2011 - 2015</option>
+                <option value="2016-2020">2016 - 2020</option>
+            `;
+
+            sortedSingleYears.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year.toString();
+                option.textContent = year.toString();
+                yearSelect.appendChild(option);
+            });
+        }
+
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('detailModal');
+            if (!modal || modal.style.display !== 'flex') return;
+            if (!currentPlushList || currentPlushList.length === 0) return;
+
+            if (event.key === 'ArrowRight') {
+                currentPlushIndex = (currentPlushIndex + 1) % currentPlushList.length;
+                openModal(currentPlushList[currentPlushIndex], currentPlushList);
+            } 
+            else if (event.key === 'ArrowLeft') {
+                currentPlushIndex = (currentPlushIndex - 1 + currentPlushList.length) % currentPlushList.length;
+                openModal(currentPlushList[currentPlushIndex], currentPlushList);
+            } 
+            else if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize Page
+        populateBrandsFromData();
+        populateDateDropdowns();
+        renderGrid(plushData, 'gridContainer');
+    </script>
+</body>
+</html>
