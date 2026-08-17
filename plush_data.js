@@ -5178,7 +5178,7 @@ const plushData = [
         "size": "25cm/10in",
         "fabrics": "faux fur, fleece, nylon",
         "softness": "7/10",
-        "weight": "6/10",
+        "weight": "7/10",
         "floppiness": "4/10",
         "beads": "he's got beads in his bottom!",
         "modifications": "none",
