@@ -8311,7 +8311,7 @@ const plushData = [
     },
     {
         "name": "Prins",
-        "file": "Prins.jpeg",
+        "file": "prins.jpeg",
         "species": "felines",
         "sub1": "cheetahs",
         "sub2": "king_cheetahs",
