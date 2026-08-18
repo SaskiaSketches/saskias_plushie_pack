@@ -1530,28 +1530,6 @@ const plushData = [
         "crop": "center"
     },
     {
-        "name": "Ember",
-        "file": "ember.jpeg",
-        "species": "canines",
-        "sub1": "foxes",
-        "sub2": "red_foxes",
-        "brand": "Lelly Venturelli",
-        "model_name": "Cucciolata Bosco collection fox",
-        "handmade": false,
-        "maker": "None",
-        "adoption_date": "05/08/2021",
-        "backstory": "I fell in love with the promotional pictures even though the quality was super low for some reason on the website I found him on. He wasn’t at all what I was expecting but I love him so much all the same!",
-        "size": "30cm/12in (measured without tail), 45cm/18in (measured with tail)",
-        "fabrics": "faux fur, fleece",
-        "softness": "8/10",
-        "weight": "9/10",
-        "floppiness": "10/10",
-        "beads": "yes, he’s got beads in his stomach!",
-        "modifications": "none",
-        "additional_info": "I had some trouble connecting with him the first couple years I had him, but then I took him with me when I was going about my daily tasks one day and now I absolutely adore him!",
-        "crop": "center"
-    },
-    {
         "name": "Rook",
         "file": "rook.jpeg",
         "species": "misc_mammals",
