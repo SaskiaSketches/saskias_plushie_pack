@@ -8308,7 +8308,7 @@ const plushData = [
         "modifications": "none",
         "additional_info": "none",
         "crop": "bottom"
-    }
+    },
     {
         "name": "Prins",
         "file": "Prins.jpeg",
