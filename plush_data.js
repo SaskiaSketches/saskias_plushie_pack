@@ -3624,7 +3624,7 @@ const plushData = [
         "handmade": false,
         "maker": "None",
         "adoption_date": "17/08/2024",
-        "backstory": "I debated getting a Nicotoy leopard for months when it was in an outlet sale, but I never ended up getting it. Then, once it was gone, it was nowhere to be found, and I regretted it a lot. I wanted to get another, but it seemed impossible to find it. Eventually I stumbled upon a Hamleys leopard that looked just like the one I wanted, and because branding is unimportant to me, I really wanted to get him. Unfortunately it was an eBay listing that shipped only within the UK, but a friend of mine was kind enough to buy him and ship him to me. He had a lot of fun hanging out with their plushies and made some friends for life!",
+        "backstory": "I debated getting a Nicotoy leopard for months when it was in an outlet sale, but I never ended up getting it. Then, once it was gone, it was nowhere to be found, and I regretted it a lot. I wanted to get another, but they seemed impossible to find. There was one I passed on because the person selling it sold it for 3x retail price and I did not want to pay that much. Eventually I stumbled upon a Hamleys leopard that looked just like the one I wanted, and because branding is unimportant to me, I really wanted to get him. Unfortunately it was an eBay listing that shipped only within the UK, but a friend of mine was kind enough to buy him and ship him to me. He had a lot of fun hanging out with their plushies and made some friends for life!",
         "size": "45cm/18in (measured without tail), 70cm/28in (measured with tail)",
         "fabrics": "faux fur",
         "softness": "5/10",
@@ -8305,7 +8305,7 @@ const plushData = [
         "weight": "9/10",
         "floppiness": "9/10",
         "beads": "he has beads in his paws and his tail!",
-        "modifications": "none",
+        "modifications": "I added black minky over the paint on his face to ensure the black parts would not wash out and I reattached his eyes with safety eye backs to secure them in place. I also thread sculpted his face a bit.",
         "additional_info": "none",
         "crop": "bottom"
     },
