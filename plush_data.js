@@ -8330,5 +8330,27 @@ const plushData = [
         "modifications": "I thread sculpted his face, I reinstalled his whiskers, I added a dark mane, and I painted his spots. It took a lot of tries to get the correct materials and I repainted him four times before I finally got the colour to stick to his fur, but he was 100% worth all the effort!",
         "additional_info": "none",
         "crop": "bottom"
+    },
+    {
+        "name": "Fynn",
+        "file": "fynn.jpeg",
+        "species": "canines",
+        "sub1": "foxes",
+        "sub2": "red_foxes",
+        "brand": "Hansa Creation",
+        "model_name": "6794, fox lying",
+        "handmade": false,
+        "maker": "none",
+        "adoption_date": "24/08/2026",
+        "backstory": "I traded for him with a friend! I received him on a very difficult day and I cried when I opened the box because I loved him so much, so I decided to keep him instead of putting him in The Waiting Room.",
+        "size": "75cm/30in (measured without tail), 110cm/43in (measured with tail)",
+        "fabrics": "faux fur, minky, fleece, faux leather",
+        "softness": "7/10",
+        "weight": "6/10",
+        "floppiness": "8/10",
+        "beads": "none",
+        "modifications": "none",
+        "additional_info": "none",
+        "crop": "bottom"
     }
 ];
