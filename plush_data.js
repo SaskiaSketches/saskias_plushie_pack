@@ -5306,7 +5306,7 @@ const plushData = [
         "handmade": true,
         "maker": "Jaydy",
         "adoption_date": "19/03/2025",
-        "backstory": "none",
+        "backstory": "A friend made him for me for my birthday!",
         "size": "75cm/30in",
         "fabrics": "fleece, nylon, velveteen",
         "softness": "6/10",
