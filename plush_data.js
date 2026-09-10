@@ -8417,7 +8417,7 @@ const plushData = [
         "beads": "none",
         "modifications": "none",
         "additional_info": "none",
-        "crop": "center"
+        "crop": "bottom"
     }
     
 ];
