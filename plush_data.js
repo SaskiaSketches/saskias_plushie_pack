@@ -5170,7 +5170,7 @@ const plushData = [
         "sub1": "eagles",
         "sub2": "golden_eagles",
         "brand": "Applause Inc.",
-        "model_name": "none",
+        "model_name": "unknown",
         "handmade": false,
         "maker": "None",
         "adoption_date": "06/03/2025",
