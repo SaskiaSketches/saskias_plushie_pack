@@ -5269,7 +5269,7 @@ const plushData = [
         "weight": "10/10",
         "floppiness": "10/10",
         "beads": "he's got beads in her paws and the entire back half of his body!",
-        "modifications": "none by me, but her original owner cut off his tag.",
+        "modifications": "none by me, but his original owner cut off his tag.",
         "additional_info": "none",
         "crop": "bottom"
     },
