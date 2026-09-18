@@ -8449,7 +8449,7 @@ const plushData = [
         "species": "canines",
         "sub1": "domestic_dogs",
         "sub2": "misc_domestic_dogs",
-        "brand": "Disney",
+        "brand": "Lady and the Tramp",
         "model_name": "Tramp plush 2021 16 inch",
         "handmade": false,
         "maker": "none",
