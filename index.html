@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,42 +13,68 @@
             --accent: #6b8e7d;
             --nav-hover: #e2e8f0;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
         }
+
         header {
             background-color: var(--card-bg);
             padding: 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        h1 { margin: 0 0 15px 0; font-size: 2.2rem; color: #1a202c; }
-        h2 { color: #1a202c; margin-top: 10px; margin-bottom: 20px; }
-        
+
+        h1 {
+            margin: 0 0 15px 0;
+            font-size: 2.2rem;
+            color: #1a202c;
+        }
+
+        h2 {
+            color: #1a202c;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
         nav button {
-            background: none; border: 1px solid transparent;
-            padding: 8px 18px; margin: 0 4px;
-            cursor: pointer; font-weight: 600; font-size: 1rem;
-            border-radius: 20px; color: #4a5568;
+            background: none;
+            border: 1px solid transparent;
+            padding: 8px 18px;
+            margin: 0 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 20px;
+            color: #4a5568;
             transition: all 0.2s;
         }
-        nav button.active, nav button:hover {
+
+        nav button.active,
+        nav button:hover {
             background-color: var(--accent);
             color: white;
         }
+
         .page-content {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
             display: none;
         }
-        .page-content.active { display: block; }
-        
+
+        .page-content.active {
+            display: block;
+        }
+
         /* Interactive Grid Filter Bar */
         .filter-bar {
             background: var(--card-bg);
@@ -57,10 +84,12 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
             border: 1px solid #e2e8f0;
         }
-        .filter-bar select, .filter-bar input {
+
+        .filter-bar select,
+        .filter-bar input {
             padding: 9px 12px;
             border: 1px solid #d2d6dc;
             border-radius: 8px;
@@ -72,7 +101,9 @@
             width: 100%;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .filter-bar select:focus, .filter-bar input:focus {
+
+        .filter-bar select:focus,
+        .filter-bar input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 2px rgba(107, 142, 125, 0.2);
         }
@@ -81,9 +112,11 @@
         .span-3 {
             grid-column: span 3;
         }
+
         .span-2 {
             grid-column: span 2;
         }
+
         .date-group {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -95,10 +128,13 @@
             .filter-bar {
                 grid-template-columns: 1fr;
             }
-            .span-3, .span-2 {
+
+            .span-3,
+            .span-2 {
                 grid-column: span 1;
             }
         }
+
         @media (max-width: 500px) {
             .date-group {
                 grid-template-columns: 1fr;
@@ -111,26 +147,35 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
         }
+
         .plush-card {
             background: var(--card-bg);
-            border-radius: 12px; padding: 15px;
+            border-radius: 12px;
+            padding: 15px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .plush-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
+
         .plush-card img {
-            width: 100%; height: 180px;
-            object-fit: cover; border-radius: 8px;
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
             background-color: #fafafa;
         }
+
         .plush-title {
-            font-weight: bold; margin-top: 12px;
-            font-size: 1.1rem; color: #1a202c;
+            font-weight: bold;
+            margin-top: 12px;
+            font-size: 1.1rem;
+            color: #1a202c;
         }
 
         /* Sort Toggle Button */
@@ -140,6 +185,7 @@
             margin-top: -10px;
             margin-bottom: 20px;
         }
+
         .sort-btn {
             background: var(--card-bg);
             border: 1px solid #cbd5e0;
@@ -153,14 +199,16 @@
             align-items: center;
             gap: 6px;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
+
         .sort-btn:hover {
             border-color: var(--accent);
             color: var(--accent);
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
+
         .sort-arrow {
             font-size: 0.95rem;
             font-weight: bold;
@@ -170,13 +218,31 @@
 
         /* Detail Modal Popup Window */
         .modal {
-            display: none; position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 1000;
-            justify-content: center; align-items: center; padding: 20px;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         .modal-content {
             background: var(--card-bg, #ffffff);
             max-width: 1050px;
@@ -188,7 +254,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
             animation: fadeIn 0.2s ease-out;
             overflow: hidden;
         }
@@ -200,17 +266,17 @@
             overflow: hidden;
         }
 
-        .modal-layout { 
-            display: flex; 
-            gap: 25px; 
+        .modal-layout {
+            display: flex;
+            gap: 25px;
             flex-wrap: nowrap;
             align-items: stretch;
             height: 100%;
         }
 
-        .modal-left { 
-            flex: 1.2; 
-            min-width: 280px; 
+        .modal-left {
+            flex: 1.2;
+            min-width: 280px;
             height: 100%;
         }
 
@@ -222,9 +288,9 @@
             display: block;
         }
 
-        .modal-right { 
-            flex: 1; 
-            min-width: 280px; 
+        .modal-right {
+            flex: 1;
+            min-width: 280px;
             height: 100%;
             overflow-y: auto;
             padding-right: 12px;
@@ -243,32 +309,77 @@
 
         .modal-close {
             position: absolute;
-            top: 15px; right: 20px;
+            top: 15px;
+            right: 20px;
             font-size: 32px;
             cursor: pointer;
             color: #a0aec0;
-            border: none; background: none; outline: none;
+            border: none;
+            background: none;
+            outline: none;
             z-index: 10;
         }
-        .modal-close:hover { color: #4a5568; }
-        
-        .card-box { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.01); margin-bottom: 20px; }
-        .update-date { color: #a0aec0; font-size: 0.85rem; margin: -5px 0 15px 0; }
-        .hardcore-tag { display: inline-block; background: #FD998B; color: #A11502; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        .challenging-tag { display: inline-block; background: #CBCDFE; color: #3861BB; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        .easy-tag { display: inline-block; background: #D9FECA; color: #6CA130; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+
+        .modal-close:hover {
+            color: #4a5568;
+        }
+
+        .card-box {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+            margin-bottom: 20px;
+        }
+
+        .update-date {
+            color: #a0aec0;
+            font-size: 0.85rem;
+            margin: -5px 0 15px 0;
+        }
+
+        .hardcore-tag {
+            display: inline-block;
+            background: #FD998B;
+            color: #A11502;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .challenging-tag {
+            display: inline-block;
+            background: #CBCDFE;
+            color: #3861BB;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .easy-tag {
+            display: inline-block;
+            background: #D9FECA;
+            color: #6CA130;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
 
         .header-banner-container {
             max-width: 1160px;
             margin: 20px auto 0 auto;
             padding: 0 20px;
         }
+
         .header-banner {
             width: 100%;
             height: auto;
             object-fit: contain;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
             display: block;
         }
 
@@ -278,28 +389,39 @@
             align-items: flex-start;
             flex-wrap: wrap;
         }
+
         .update-img {
-            width: 300px; height: 300px;
+            width: 300px;
+            height: 300px;
             object-fit: cover;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
+
         .update-text-container {
-            flex: 1; min-width: 250px;
+            flex: 1;
+            min-width: 250px;
         }
+
         .update-text-container h3 {
-            margin-top: 0; margin-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 5px;
         }
 
         .artist-header {
-            font-size: 1.6rem; color: #1a202c;
-            margin-top: 30px; margin-bottom: 10px;
+            font-size: 1.6rem;
+            color: #1a202c;
+            margin-top: 30px;
+            margin-bottom: 10px;
             border-bottom: 2px solid var(--accent);
             padding-bottom: 5px;
         }
+
         .artist-description {
-            font-size: 1rem; color: #4a5568;
-            margin-bottom: 20px; font-style: italic;
+            font-size: 1rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-style: italic;
         }
 
         /* 3-Image Row Layout for "What is The Box?" */
@@ -308,25 +430,59 @@
             gap: 15px;
             margin-bottom: 25px;
         }
+
         .box-image-row img {
             flex: 1;
             width: 33.333%;
             height: 300px;
             object-fit: cover;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
+
         @media (max-width: 700px) {
             .box-image-row {
                 flex-direction: column;
             }
+
             .box-image-row img {
                 width: 100%;
                 height: 220px;
             }
         }
+
+        /* Image Container Position */
+        .plush-card .img-container,
+        .plush-card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            /* Matches your rounded thumbnail corners */
+        }
+
+        /* Green "FOUND" Overlay */
+        .found-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(46, 125, 50, 0.75);
+            /* Semi-transparent green tint */
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            pointer-events: none;
+            /* Allows clicking through to open detail modal if needed */
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -349,12 +505,18 @@
     <!-- 1. WELCOME PAGE -->
     <div id="welcome" class="page-content active">
         <div class="card-box">
-        <h2>Hello hello!</h2>
+            <h2>Hello hello!</h2>
             <p><strong>None of the plushies listed on this website are available for purchase!</strong></p>
             <p>My name is Saskia and welcome to my collection log.</p>
-            <p>I decided to move the record of my collection from Instagram to a dedicated website. Here you can find everybody from my plushie pack, including their names, brands, backstories, and other relevant information!</p>
-            <p>If you need help finding a plush, feel free to shoot me a message! As listed above, this is my personal collection so none of these plushies are for sale. Please do not ask, I will not respond. I'd be happy to help you find a similar one though!</p>
-            <p>I'm mostly done collecting, but there are a few plush I'm still hoping to add to my pack. You will find them in the <strong>"Grails"</strong> section. If you have any for sale or know of any listings, please send me a message!</p>
+            <p>I decided to move the record of my collection from Instagram to a dedicated website. Here you can find
+                everybody from my plushie pack, including their names, brands, backstories, and other relevant
+                information!</p>
+            <p>If you need help finding a plush, feel free to shoot me a message! As listed above, this is my personal
+                collection so none of these plushies are for sale. Please do not ask, I will not respond. I'd be happy
+                to help you find a similar one though!</p>
+            <p>I'm mostly done collecting, but there are a few plush I'm still hoping to add to my pack. You will find
+                them in the <strong>"Grails"</strong> section. If you have any for sale or know of any listings, please
+                send me a message!</p>
             <p>Have fun looking around!</p>
             <p>-Saskia</p>
         </div>
@@ -365,7 +527,7 @@
         <div class="filter-bar">
             <!-- Row 1 (5 Equal Columns) -->
             <input type="text" id="searchBar" onkeyup="filterPlushies()" placeholder="🔍 Search by name...">
-            
+
             <select id="speciesFilter" onchange="updateSub1Dropdown(); filterPlushies();">
                 <option value="all">Family</option>
                 <option value="avians">Avians</option>
@@ -387,11 +549,11 @@
                 <option value="extinct_animals">Extinct Animals</option>
                 <option value="fantastical_animals">Fantastical Animals</option>
             </select>
-            
+
             <select id="sub1Filter" onchange="updateSub2Dropdown(); filterPlushies();">
                 <option value="all">Species</option>
             </select>
-            
+
             <select id="sub2Filter" onchange="filterPlushies()">
                 <option value="all">Subspecies</option>
             </select>
@@ -478,15 +640,22 @@
         <div class="plush-grid" id="grid-chvrchgrim"></div>
 
         <div class="artist-header">CrotalusCreatures</div>
-        <p class="artist-description">Crotalus specialises in realistic plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/crotaluscreatures/" target="_blank">@crotaluscreatures</a> and can be purchased on <a href="https://crotaluscreatures.com/collections/plushies" target="_blank">their website!</a></p>
+        <p class="artist-description">Crotalus specialises in realistic plush. Their work can be found on Instagram
+            under the username <a href="https://www.instagram.com/crotaluscreatures/"
+                target="_blank">@crotaluscreatures</a> and can be purchased on <a
+                href="https://crotaluscreatures.com/collections/plushies" target="_blank">their website!</a></p>
         <div class="plush-grid" id="grid-crotaluscreatures"></div>
 
         <div class="artist-header">Cursed Thirteen</div>
-        <p class="artist-description">Cursed Thirteen specialises in knitting. Their work can be found on Instagram under the username <a href="https://www.instagram.com/cursed_thirteen/" target="_blank">@cursed_thirteen</a> and commissioned there as well. </p>
+        <p class="artist-description">Cursed Thirteen specialises in knitting. Their work can be found on Instagram
+            under the username <a href="https://www.instagram.com/cursed_thirteen/" target="_blank">@cursed_thirteen</a>
+            and commissioned there as well. </p>
         <div class="plush-grid" id="grid-cursedthirteen"></div>
 
         <div class="artist-header">Frazetta Toys</div>
-        <p class="artist-description">Frazetta specialises in handmade plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/frazetta.toys/" target="_blank">@frazetta.toys</a> and commissioned there as well. </p>
+        <p class="artist-description">Frazetta specialises in handmade plush. Their work can be found on Instagram under
+            the username <a href="https://www.instagram.com/frazetta.toys/" target="_blank">@frazetta.toys</a> and
+            commissioned there as well. </p>
         <div class="plush-grid" id="grid-frazettatoys"></div>
 
         <div class="artist-header">Jaydy</div>
@@ -494,27 +663,41 @@
         <div class="plush-grid" id="grid-jaydy"></div>
 
         <div class="artist-header">Muurkaartjes</div>
-        <p class="artist-description">Muurkaartjes specialises in crocheting, knitting, and traditional art. Their work can be found on Instagram under the username <a href="https://www.instagram.com/muurkaartjes/" target="_blank">@muurkaartjes</a> and commissioned there as well.</p>
+        <p class="artist-description">Muurkaartjes specialises in crocheting, knitting, and traditional art. Their work
+            can be found on Instagram under the username <a href="https://www.instagram.com/muurkaartjes/"
+                target="_blank">@muurkaartjes</a> and commissioned there as well.</p>
         <div class="plush-grid" id="grid-muurkaartjes"></div>
 
         <div class="artist-header">Need4Needles Plusherie</div>
-        <p class="artist-description">Need4Needles specialises in handmade plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/need4needles.plusherie/" target="_blank">@need4needles.plusherie</a> and commissioned there as well. </p>
+        <p class="artist-description">Need4Needles specialises in handmade plush. Their work can be found on Instagram
+            under the username <a href="https://www.instagram.com/need4needles.plusherie/"
+                target="_blank">@need4needles.plusherie</a> and commissioned there as well. </p>
         <div class="plush-grid" id="grid-need4needlesplusherie"></div>
 
         <div class="artist-header">Sarity</div>
-        <p class="artist-description">Sarity specialises in hyperrealistic plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/sarityplush/" target="_blank">@sarityplush</a> and purchased there as well. </p>
+        <p class="artist-description">Sarity specialises in hyperrealistic plush. Their work can be found on Instagram
+            under the username <a href="https://www.instagram.com/sarityplush/" target="_blank">@sarityplush</a> and
+            purchased there as well. </p>
         <div class="plush-grid" id="grid-sarity"></div>
 
         <div class="artist-header">Stormheart Creations</div>
-        <p class="artist-description">Stormheart specialises in handmade plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/stormheart_creations/" target="_blank">@stormheart_creations</a> and purchased there as well. </p>
+        <p class="artist-description">Stormheart specialises in handmade plush. Their work can be found on Instagram
+            under the username <a href="https://www.instagram.com/stormheart_creations/"
+                target="_blank">@stormheart_creations</a> and purchased there as well. </p>
         <div class="plush-grid" id="grid-stormheartcreations"></div>
 
         <div class="artist-header">VikiRealisticDog</div>
-        <p class="artist-description">This wonderful creator specialises in hyperrealistic plush. Their work can be found on Instagram under the username <a href="https://www.instagram.com/viki_realistic_plushies/" target="_blank">@viki_realistic_plushies</a> and purchased on their Etsy under the username <a href="https://www.etsy.com/shop/Vikirealisticdog" target="_blank">Vikirealisticdog</a>. </p>
+        <p class="artist-description">This wonderful creator specialises in hyperrealistic plush. Their work can be
+            found on Instagram under the username <a href="https://www.instagram.com/viki_realistic_plushies/"
+                target="_blank">@viki_realistic_plushies</a> and purchased on their Etsy under the username <a
+                href="https://www.etsy.com/shop/Vikirealisticdog" target="_blank">Vikirealisticdog</a>. </p>
         <div class="plush-grid" id="grid-vikirealisticdog"></div>
 
         <div class="artist-header">SaskiaSketches (me!)</div>
-        <p class="artist-description">This is me! I specialise in handmade plush and I'm working towards hyperrealism. My work can be found on Instagram under the username <a href="https://www.instagram.com/saskiasketches_stitches/" target="_blank">@saskiasketches_stitches</a> and both purchased and commissioned there as well.</p>
+        <p class="artist-description">This is me! I specialise in handmade plush and I'm working towards hyperrealism.
+            My work can be found on Instagram under the username <a
+                href="https://www.instagram.com/saskiasketches_stitches/" target="_blank">@saskiasketches_stitches</a>
+            and both purchased and commissioned there as well.</p>
         <div class="plush-grid" id="grid-saskiasketches"></div>
     </div>
 
@@ -527,8 +710,17 @@
         </div>
 
         <div class="card-box">
-        <h2>What is The Box?</h2>
-            <p>I used to have an impulse buying problem and in order to help myself with that, I created The Box (with Tembo's help as you can see above!). I wanted to make impulse buying less rewarding for myself, so any plushie that I bought in a moment of weakness I wrapped and put inside The Box. Then, on a difficult day when I needed some comfort, the idea was to take a plushie out of The Box instead of scrolling Vinted and impulse buying new ones. It works well, because in moments like those, what I really need is self-compassion. Nowadays I've got much more control and I haven't impulse bought pretty much at all in 2026! Of course I still have moments of weakness when I see a cute plushie, but now I can take a deep breath and remind myself that though I certainly have enough love for all the plushies in the world, I don't have enough space, and someone else will love them just as much as me. This helps me curate my collection and save space and money for the plushies that I want the most!</p>
+            <h2>What is The Box?</h2>
+            <p>I used to have an impulse buying problem and in order to help myself with that, I created The Box (with
+                Tembo's help as you can see above!). I wanted to make impulse buying less rewarding for myself, so any
+                plushie that I bought in a moment of weakness I wrapped and put inside The Box. Then, on a difficult day
+                when I needed some comfort, the idea was to take a plushie out of The Box instead of scrolling Vinted
+                and impulse buying new ones. It works well, because in moments like those, what I really need is
+                self-compassion. Nowadays I've got much more control and I haven't impulse bought pretty much at all in
+                2026! Of course I still have moments of weakness when I see a cute plushie, but now I can take a deep
+                breath and remind myself that though I certainly have enough love for all the plushies in the world, I
+                don't have enough space, and someone else will love them just as much as me. This helps me curate my
+                collection and save space and money for the plushies that I want the most!</p>
         </div>
 
         <div class="box-image-row">
@@ -537,8 +729,17 @@
         </div>
 
         <div class="card-box">
-        <h2>What is The Waiting Room?</h2>
-            <p>The Waiting Room is a similar concept. Every new plush I receive, be it through a trade, as a gift, because I saved up for it, because I made it, or through any other method, either goes into The Box or into The Waiting Room if they are too big for The Box! The difference between The Box and The Waiting Room is that I can grab something from The Box whenever I feel bad, but I can only take <i>one</i> plushie from The Waiting Room every month. I implemented this to keep my collection from growing super quickly, because though I didn't buy very many plushies in 2026, I still added a ton to my pack through gifts and trades. I wanted to feel a bit more in control over how much and how quickly my collection grows and I also wanted to feel excited again about adding a new plushie to my pack! I think it should be a super fun and special experience to get a new plushie, and because I have gotten as many as I have, I've lost that feeling, so here's to hoping this will help me capture that again.</p>
+            <h2>What is The Waiting Room?</h2>
+            <p>The Waiting Room is a similar concept. Every new plush I receive, be it through a trade, as a gift,
+                because I saved up for it, because I made it, or through any other method, either goes into The Box or
+                into The Waiting Room if they are too big for The Box! The difference between The Box and The Waiting
+                Room is that I can grab something from The Box whenever I feel bad, but I can only take <i>one</i>
+                plushie from The Waiting Room every month. I implemented this to keep my collection from growing super
+                quickly, because though I didn't buy very many plushies in 2026, I still added a ton to my pack through
+                gifts and trades. I wanted to feel a bit more in control over how much and how quickly my collection
+                grows and I also wanted to feel excited again about adding a new plushie to my pack! I think it should
+                be a super fun and special experience to get a new plushie, and because I have gotten as many as I have,
+                I've lost that feeling, so here's to hoping this will help me capture that again.</p>
         </div>
 
     </div>
@@ -551,7 +752,14 @@
             <img src="images/taliesin_update.jpeg" alt="Taliesin" class="update-img">
             <div class="update-text-container">
                 <h3>07/08/2026 - Taliesin joins the pack!</h3>
-                <p>I just received a wonderful guardian wolf from a dear friend of mine. He was custom-made for me for a very special plushie that I got to make for my friend in exchange, none other than Njörun the soul fox! Taliesin was named after Merlin from the Arthurian legends, his other name in the book I'm currently reading! It suits this pretty pup very well. I am in awe of how beautiful he is! So much love, time, and effort went into his design and it shows in everything! From all the little details, like the thread sculpting and the striking eyes, to the way he was stuffed, so nicely weighted and wonderfully floppy, plus his incredibly soft fabrics, I marvel at him! I am so blessed to add him to the pack today. Welcome home, Taliesin!</p>
+                <p>I just received a wonderful guardian wolf from a dear friend of mine. He was custom-made for me for a
+                    very special plushie that I got to make for my friend in exchange, none other than Njörun the soul
+                    fox! Taliesin was named after Merlin from the Arthurian legends, his other name in the book I'm
+                    currently reading! It suits this pretty pup very well. I am in awe of how beautiful he is! So much
+                    love, time, and effort went into his design and it shows in everything! From all the little details,
+                    like the thread sculpting and the striking eyes, to the way he was stuffed, so nicely weighted and
+                    wonderfully floppy, plus his incredibly soft fabrics, I marvel at him! I am so blessed to add him to
+                    the pack today. Welcome home, Taliesin!</p>
             </div>
         </div>
 
@@ -559,7 +767,13 @@
             <img src="images/aleara_update.jpeg" alt="Aleara" class="update-img">
             <div class="update-text-container">
                 <h3>30/07/2026 - Aleara joins the pack!</h3>
-                <p>I am unbelievably happy to announce that Aleara is joining my pack! I thought I'd never find a WWF large silver fox for under a thousand, which I could never pay, so it means so much to me that a dear friend of mine decided to sell their second WWF silver fox to me for a much more reasonable price. UPS was unbelievably unclear about when she would be delivered, but finally she was dropped off at a nearby pick-up point so I was able to retrieve her today! I still cannot believe that she is actually mine, even as I have her on my lap as I'm writing this. I love her so much, welcome home Aleara!</p>
+                <p>I am unbelievably happy to announce that Aleara is joining my pack! I thought I'd never find a WWF
+                    large silver fox for under a thousand, which I could never pay, so it means so much to me that a
+                    dear friend of mine decided to sell their second WWF silver fox to me for a much more reasonable
+                    price. UPS was unbelievably unclear about when she would be delivered, but finally she was dropped
+                    off at a nearby pick-up point so I was able to retrieve her today! I still cannot believe that she
+                    is actually mine, even as I have her on my lap as I'm writing this. I love her so much, welcome home
+                    Aleara!</p>
             </div>
         </div>
     </div>
@@ -567,22 +781,23 @@
     <!-- 6. GRAILS PAGE -->
     <div id="grails" class="page-content">
         <h2>My Plushie Wish List</h2>
-        
+
         <div class="card-box">
             <h3>My Biggest Grails <span class="hardcore-tag">HARDCORE</span></h3>
             <p>Plushies that are extremely difficult to come by.</p>
             <div class="plush-grid" id="grid-grails-hardcore" style="margin-top: 15px;"></div>
         </div>
-        
+
         <div class="card-box">
             <h3>Overseas <span class="challenging-tag">CHALLENGING</span></h3>
             <p>Plushies I’ve been wanting for a while, but need help acquiring to save on shipping and import fees.</p>
             <div class="plush-grid" id="grid-grails-overseas" style="margin-top: 15px;"></div>
         </div>
-        
+
         <div class="card-box">
             <h3>Priority <span class="easy-tag">EASY</span></h3>
-            <p>Plushies I want the most/have been wanting the longest, but haven’t gotten around to getting yet. Plushies I would hate to see go out of stock before I’ve gotten a chance to get one.</p>
+            <p>Plushies I want the most/have been wanting the longest, but haven’t gotten around to getting yet.
+                Plushies I would hate to see go out of stock before I’ve gotten a chance to get one.</p>
             <div class="plush-grid" id="grid-grails-priority" style="margin-top: 15px;"></div>
         </div>
     </div>
@@ -590,8 +805,9 @@
     <!-- 7. CONTACT PAGE -->
     <div id="contact" class="page-content">
         <div class="card-box">
-        <h2>Get in Touch</h2>
-            <p>The only social media I am currently active on is Discord. I'm SaskiaSketches over there, feel free to send me a friend request and a message!</p>
+            <h2>Get in Touch</h2>
+            <p>The only social media I am currently active on is Discord. I'm SaskiaSketches over there, feel free to
+                send me a friend request and a message!</p>
         </div>
     </div>
 
@@ -728,17 +944,6 @@
                 isGrail: true
             },
             {
-                name: "Steiff Cheetah",
-                file: "grail_steiff_cheetah.jpeg",
-                brand: "Steiff",
-                model_name: "large cheetah",
-                on_list_since: "2025",
-                status: "grail",
-                history: "After I'd gotten Tuhin, I fell head over heels for the big Steiff cats. I found a listing for the cheetah, but unfortunately there was only one left and it was unbelievably expensive, so I could not afford it. That listing has since sold.",
-                category: "hardcore",
-                isGrail: true
-            },
-            {
                 name: "Lelly Venturelli Medium White Lion",
                 file: "grail_lelly_white_lion_medium.jpeg",
                 future_name: "Kronos",
@@ -833,6 +1038,7 @@
                 history: "I fell in love with Sneakie from an Instagram giveaway for her that Douglas Cuddle Toys did. Obviously I didn't end up winning but I've wanted one ever since. Sadly she is unavailable over here.",
                 category: "overseas",
                 isGrail: true
+                found: true
             },
             {
                 name: "Folkmanis Alligator",
@@ -844,10 +1050,23 @@
                 history: "I have wanted one of these for a while, but I saw that the ones on Ebay looked quite different from their promotional pictures, so I'm holding off on buying one until I can find one that looks better.",
                 category: "overseas",
                 isGrail: true
+                found: true
             },
             {
                 name: "WWF Darwin's fox",
                 file: "grail_wwf_darwin_fox.jpeg",
+                brand: "WWF, Wild Republic",
+                model_name: "unknown",
+                on_list_since: "2025",
+                status: "chase",
+                history: "I've wanted to collect all the WWF Darwin's foxes for a while, and he's another one I need!",
+                credit: "<a href='https://www.ebay.nl/itm/236830474973' target='_blank'>eBay</a>",
+                category: "overseas",
+                isGrail: true
+            },
+            {
+                name: "WWF Darwin's fox",
+                file: "grail_wwf_darwin_fox2.jpeg",
                 brand: "WWF, Wild Republic",
                 model_name: "unknown",
                 on_list_since: "2025",
@@ -1019,25 +1238,25 @@
         const taxonomyMaps = {
             canines: {
                 domestic_dogs: ["bernese_mountain_dogs", "chihuahuas", "german_shepherds", "golden_retrievers", "huskies", "labradors", "misc_domestic_dogs"],
-                foxes: ["arctic_foxes_summer", "arctic_foxes_winter", "bat_eared_foxes", "cross_foxes", "darwins_foxes", "fennec_foxes", "grey_foxes", "red_foxes", "silver_foxes_traditional", "silver_foxes_whitemark", "smokey_foxes", "cherry_red_foxes", "misc_foxes"], 
-                wolves: [], 
+                foxes: ["arctic_foxes_summer", "arctic_foxes_winter", "bat_eared_foxes", "cross_foxes", "darwins_foxes", "fennec_foxes", "grey_foxes", "red_foxes", "silver_foxes_traditional", "silver_foxes_whitemark", "smokey_foxes", "cherry_red_foxes", "misc_foxes"],
+                wolves: [],
                 misc_wild_canines: ["african_wild_dogs", "coyotes", "jackals", "tanuki"]
             },
-            felines: { black_panthers:[], cheetahs:["regular_cheetahs", "king_cheetahs"], clouded_leopards:[], cougars:[], domestic_cats:[], jaguars:[], leopards:[], lions:["lions", "lionesses", "white_lions", "white_lionesses"], lynxes:[], tigers:["orange_tigers", "white_tigers"], snow_leopards:[] },
-            avians: { corvids:[], eagles:["bald_eagles", "golden_eagles"], owls:[], parrots:[], toucans:[], misc_avians:[] },
-            bovines: { domestic_cattle:[], wild_cattle:[] },
-            cervids: { alces:[], reindeer:[], true_deer:[] },
-            equines: { donkeys:[], horses:[], zebras:[] },
-            leporines: { hares:[], rabbits:[], konijnenfamilie:[] },
-            mustelids: { badgers:[], otters:[] },
-            porcines: { domestic_pigs:[], wild_pigs:[] },
-            primates: { apes:["gorillas", "orangutans", "chimpanzees"], lemurs:[], monkeys:["macaques", "mandrills", "capuchins"] },
-            ursids: { black_bears:[], brown_bears:[], panda_bears:[], polar_bears:[] },
-            marine_animals: { dolphins:[], orcas:[], seals:[], sealions:[], sharks:[], walrusses:[], whales:[] },
-            reptilians_amphibians: { crocodiles:[], frogs:[], snakes:[], tortoises:[], turtles:[] },
-            misc_mammals: { anteaters:[], bats:[], meercats:[], megafauna:["elephants", "giraffes", "hippos", "rhinos"], red_pandas:[] },
-            extinct_animals: { dinosaurs:[], sabretooth_tigers:[], thylacines:[] },
-            fantastical_animals: { dragons:[], jackalopes:[], loch_ness_monsters:[] }
+            felines: {black_panthers: [], cheetahs: ["regular_cheetahs", "king_cheetahs"], clouded_leopards: [], cougars: [], domestic_cats: [], jaguars: [], leopards: [], lions: ["lions", "lionesses", "white_lions", "white_lionesses"], lynxes: [], tigers: ["orange_tigers", "white_tigers"], snow_leopards: []},
+            avians: {corvids: [], eagles: ["bald_eagles", "golden_eagles"], owls: [], parrots: [], toucans: [], misc_avians: []},
+            bovines: {domestic_cattle: [], wild_cattle: []},
+            cervids: {alces: [], reindeer: [], true_deer: []},
+            equines: {donkeys: [], horses: [], zebras: []},
+            leporines: {hares: [], rabbits: [], konijnenfamilie: []},
+            mustelids: {badgers: [], otters: []},
+            porcines: {domestic_pigs: [], wild_pigs: []},
+            primates: {apes: ["gorillas", "orangutans", "chimpanzees"], lemurs: [], monkeys: ["macaques", "mandrills", "capuchins"]},
+            ursids: {black_bears: [], brown_bears: [], panda_bears: [], polar_bears: []},
+            marine_animals: {dolphins: [], orcas: [], seals: [], sealions: [], sharks: [], walrusses: [], whales: []},
+            reptilians_amphibians: {crocodiles: [], frogs: [], snakes: [], tortoises: [], turtles: []},
+            misc_mammals: {anteaters: [], bats: [], meercats: [], megafauna: ["elephants", "giraffes", "hippos", "rhinos"], red_pandas: []},
+            extinct_animals: {dinosaurs: [], sabretooth_tigers: [], thylacines: []},
+            fantastical_animals: {dragons: [], jackalopes: [], loch_ness_monsters: []}
         };
 
         // Sort States:
@@ -1049,7 +1268,7 @@
 
         function toggleSortOrder() {
             sortState = (sortState + 1) % 4;
-            
+
             const textEl = document.getElementById('sortText');
             const arrowEl = document.getElementById('sortArrow');
 
@@ -1087,16 +1306,16 @@
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.getElementById('btn-' + pageId).classList.add('active');
-            
+
             if (pageId === 'collection') {
                 filterPlushies();
             } else if (pageId === 'handmade') {
                 const artists = [
-                    "chvrchgrim", "crotaluscreatures", "cursedthirteen", 
-                    "frazettatoys", "jaydy", "muurkaartjes", "need4needlesplusherie", 
+                    "chvrchgrim", "crotaluscreatures", "cursedthirteen",
+                    "frazettatoys", "jaydy", "muurkaartjes", "need4needlesplusherie",
                     "sarity", "stormheartcreations", "vikirealisticdog", "saskiasketches"
                 ];
-                
+
                 artists.forEach(artist => {
                     let makerKey = artist;
                     if (artist === "crotaluscreatures") makerKey = "Crotalus Creatures";
@@ -1132,7 +1351,7 @@
             const sub2 = document.getElementById('sub2Filter');
             sub1.innerHTML = '<option value="all">Species</option>';
             sub2.innerHTML = '<option value="all">Subspecies</option>';
-            
+
             if (taxonomyMaps[main]) {
                 Object.keys(taxonomyMaps[main]).forEach(key => {
                     const formatted = key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
@@ -1146,7 +1365,7 @@
             const sub1 = document.getElementById('sub1Filter').value;
             const sub2 = document.getElementById('sub2Filter');
             sub2.innerHTML = '<option value="all">Subspecies</option>';
-            
+
             if (taxonomyMaps[main] && taxonomyMaps[main][sub1]) {
                 taxonomyMaps[main][sub1].forEach(key => {
                     const formatted = key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
@@ -1171,11 +1390,15 @@
                 card.onclick = () => openModal(plush, data);
 
                 const pos = plush.crop || 'center';
+                const foundBadge = plush.found ? `<div class="found-overlay">FOUND</div>` : '';
 
                 card.innerHTML = `
-                    <img src="images/${plush.file}" alt="${plush.name}" loading="lazy" style="object-position: ${pos};">
-                    <div class="plush-title">${plush.name}</div>
-                `;
+            <div class="plush-card-image-wrapper">
+                <img src="images/${plush.file}" alt="${plush.name}" loading="lazy" style="object-position: ${pos};">
+                ${foundBadge}
+            </div>
+            <div class="plush-title">${plush.name}</div>
+        `;
                 container.appendChild(card);
             });
         }
@@ -1376,18 +1599,18 @@
                     }
                 }
 
-                return matchesSearch && matchesMain && matchesSub1 && matchesSub2 && 
-                       matchesSize && matchesHandmade && matchesMaker && matchesBrand && 
-                       matchesDay && matchesMonth && matchesYear;
+                return matchesSearch && matchesMain && matchesSub1 && matchesSub2 &&
+                    matchesSize && matchesHandmade && matchesMaker && matchesBrand &&
+                    matchesDay && matchesMonth && matchesYear;
             });
 
             // Apply 4-State Sorting
             if (sortState === 1) {
                 filtered.reverse();
             } else if (sortState === 2) {
-                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' }));
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, {sensitivity: 'base'}));
             } else if (sortState === 3) {
-                filtered.sort((a, b) => (b.name || '').localeCompare(a.name || '', undefined, { sensitivity: 'base' }));
+                filtered.sort((a, b) => (b.name || '').localeCompare(a.name || '', undefined, {sensitivity: 'base'}));
             }
 
             renderGrid(filtered, 'gridContainer');
@@ -1431,7 +1654,7 @@
                 }
             });
 
-            const sortedBrands = Array.from(brandSet).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+            const sortedBrands = Array.from(brandSet).sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'}));
             brandSelect.innerHTML = '<option value="all">Brand</option>';
             sortedBrands.forEach(brand => {
                 const option = document.createElement('option');
@@ -1443,21 +1666,21 @@
 
         const rangePlushMap = {
             "2001-2005": [
-                "moeder konijn", "vader konijn", "haasje", "fiepje", "fikkie", 
+                "moeder konijn", "vader konijn", "haasje", "fiepje", "fikkie",
                 "octobius", "harlie", "keintje", "popje", "spookje", "slaapje"
             ],
             "2006-2010": [
-                "claire", "coco", "kroko", "pantertje", "dolfie", "saar", 
-                "sneeuwvlokje", "schildje", "joey", "purr", "briez", "kenor", 
-                "bebe", "moe", "woof", "kapitein woef", "prinses roosje", 
+                "claire", "coco", "kroko", "pantertje", "dolfie", "saar",
+                "sneeuwvlokje", "schildje", "joey", "purr", "briez", "kenor",
+                "bebe", "moe", "woof", "kapitein woef", "prinses roosje",
                 "zebbie", "diego", "marie", "beesie"
             ],
             "2011-2015": [
                 "grote leeuw", "mare", "gwenn", "grey", "imala"
             ],
             "2016-2020": [
-                "alpha", "spike", "diamond", "tyranitar", "torterra", "crobat", 
-                "raikou", "glaceon", "furfrou", "tod", "blue", "iris", "quarin", 
+                "alpha", "spike", "diamond", "tyranitar", "torterra", "crobat",
+                "raikou", "glaceon", "furfrou", "tod", "blue", "iris", "quarin",
                 "yuannah", "loki", "yata", "ice", "ash", "fauna", "hookfang", "stormfly"
             ]
         };
@@ -1523,7 +1746,7 @@
             });
         }
 
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             const modal = document.getElementById('detailModal');
             if (!modal || modal.style.display !== 'flex') return;
             if (!currentPlushList || currentPlushList.length === 0) return;
@@ -1531,11 +1754,11 @@
             if (event.key === 'ArrowRight') {
                 currentPlushIndex = (currentPlushIndex + 1) % currentPlushList.length;
                 openModal(currentPlushList[currentPlushIndex], currentPlushList);
-            } 
+            }
             else if (event.key === 'ArrowLeft') {
                 currentPlushIndex = (currentPlushIndex - 1 + currentPlushList.length) % currentPlushList.length;
                 openModal(currentPlushList[currentPlushIndex], currentPlushList);
-            } 
+            }
             else if (event.key === 'Escape') {
                 closeModal();
             }
@@ -1547,4 +1770,5 @@
         renderGrid(plushData, 'gridContainer');
     </script>
 </body>
+
 </html>
