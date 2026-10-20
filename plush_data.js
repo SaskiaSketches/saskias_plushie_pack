@@ -8430,7 +8430,7 @@ const plushData = [
         "handmade": false,
         "maker": "none",
         "adoption_date": "13/09/2026",
-        "backstory": "I went to IKEA with my mother because I was going to be moving soon. When I picked Noa up, I just knew he had to come with. I almost put him back but it was like my inner child was super attached to him instantly and did NOT want me to go on without him. I knew I would not have been able to stop thinking of him if I put him back so he came with me! Funnily enough, I never put the IEKA chimp on my list, I went in with the intent to check out the giraffes and the cheetahs and the hippos, I’d almost made up my mind from the start to get the giraffe, but then this little guy spoke to me. We had lunch as well and Noa sat on my lap, and I carried him in my arms the whole way through the store.",
+        "backstory": "I went to IKEA with my mother because I was going to be moving soon. When I picked Noa up, I just knew he had to come with. I almost put him back but it was like my inner child was super attached to him instantly and did NOT want me to go on without him. I knew I would not have been able to stop thinking of him if I put him back so he came with me! Funnily enough, I never put the IKEA chimp on my list, I went in with the intent to check out the giraffes and the cheetahs and the hippos, I’d almost made up my mind from the start to get the giraffe, but then this little guy spoke to me. We had lunch as well and Noa sat on my lap, and I carried him in my arms the whole way through the store.",
         "size": "55cm/22in",
         "fabrics": "faux fur, minky, fleece",
         "softness": "7/10",
