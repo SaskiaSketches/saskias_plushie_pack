@@ -4981,7 +4981,7 @@ const plushData = [
         "weight": "10/10",
         "floppiness": "10/10",
         "beads": "she has beads in her stomach and her paws!",
-        "modifications": "I didn’t do any modifications, but her original owner restored her dryer burnt fur, replaced her ears, and restuffed her.",
+        "modifications": "I didn’t do any modifications, but her original owner restored her dryer burnt fur, replaced her eyes, and restuffed her.",
         "additional_info": "none",
         "crop": "center"
     },
