@@ -8195,7 +8195,7 @@ const plushData = [
         "weight": "10/10",
         "floppiness": "10/10",
         "beads": "he’s got beads in his paws and in his tail tip!",
-        "modifications": "none",
+        "modifications": "I thread sculpted his face a little bit to be more to my liking. He smiles now and his nose bridge is a bit thinner.",
         "additional_info": "none",
         "crop": "center"
     },
